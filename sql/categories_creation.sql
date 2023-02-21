@@ -1,0 +1,10 @@
+USE conferencedb;
+insert into Categories values (DEFAULT, "Science");
+insert into Categories values (DEFAULT, "IT");
+insert into Categories values (DEFAULT, "Tech");
+insert into Categories values (DEFAULT, "Bussines");
+insert into Categories values (DEFAULT, "Enviro");
+insert into Categories values (DEFAULT, "Health");
+insert into Categories values (DEFAULT, "Society");
+insert into Categories values (DEFAULT, "Life");
+insert into Categories values (DEFAULT, "Other");

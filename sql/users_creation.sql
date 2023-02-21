@@ -1,0 +1,12 @@
+USE conferencedb;
+insert into Users values (DEFAULT, "Admin", "Admin", "admin@gmail.com", "admin", 1);
+insert into Users values (DEFAULT, "Manager", "First", "manage1@ukr.net", "manager", 2);
+insert into Users values (DEFAULT, "Manager", "Second", "manager2@ukr.net", "manager", 2);
+insert into Users values (DEFAULT, "Anton", "Shapoval", "shap@gmail.com", "pass", 3);
+insert into Users values (DEFAULT, "Igor", "Igorenko", "igor@gmail.com", "12345", 3);
+insert into Users values (DEFAULT, "Peter", "Parker", "spider@gmail.com", "net", 3);
+insert into Users values (DEFAULT, "Jonny", "Cage", "jonny@gmail.com", "11111", 4);
+insert into Users values (DEFAULT, "Hulk", "Banner", "green@gmail.com", "11111", 4);
+insert into Users values (DEFAULT, "Stiven", "Strange", "stiv@gmail.com", "11111", 4);
+insert into Users values (DEFAULT, "Daniel", "Lang", "ant@gmail.com", "11111", 4);
+insert into Users values (DEFAULT, "Robert", "James", "james@gmail.com", "11111", 4);

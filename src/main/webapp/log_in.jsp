@@ -11,7 +11,7 @@
 <body>
     <div>
         <pre>
-            <form action="main" method="GET">
+            <form action="main?command=log_in" method="POST">
                 <label>Input your login (email): <input required size="15" type="text" name="login" placeholder="login (email)" /></label>
                 <label>Input your password:      <input required size="15" type="password" name="password" placeholder="password" /></label>
                 <input type="submit" value="Log in" />

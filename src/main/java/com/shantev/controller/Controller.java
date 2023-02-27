@@ -30,7 +30,7 @@ public class Controller extends HttpServlet {
 //        req.setAttribute("userRole", "admin");
         String command = req.getParameter("command");
         switch (command) {
-            case "log_in" : req.getRequestDispatcher("log_in.jsp").forward(req, resp); break;
+            case "log_in" : resp.getWriter().format("%s, %s, %s", req.getParameter("login"), req.getParameter("password")); break;
             case "sing_up" : req.getRequestDispatcher("sing_up.jsp").forward(req, resp); break;
         }
 //        req.getRequestDispatcher("data.jsp").forward(req, resp);
@@ -45,6 +45,15 @@ public class Controller extends HttpServlet {
 //           writer.format("<h3>%s</h3>", user);
 //        }
 //        userList.clear();
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String command = req.getParameter("command");
+        switch (command) {
+            case "log_in" : resp.getWriter().format("%s, %s", req.getParameter("login"), req.getParameter("password")); break;
+            case "sing_up" : req.getRequestDispatcher("sing_up.jsp").forward(req, resp); break;
+        }
     }
 
     private void getAllUsers() throws SQLException {

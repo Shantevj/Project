@@ -27,8 +27,13 @@ public class Controller extends HttpServlet {
 //        req.getSession().getAttribute("attribute");
 //        req.getSession().removeAttribute("attribute");
 //        String name = req.getParameter("name");
-        req.setAttribute("userRole", "admin");
-        req.getRequestDispatcher("data.jsp").forward(req, resp);
+//        req.setAttribute("userRole", "admin");
+        String command = req.getParameter("command");
+        switch (command) {
+            case "log_in" : req.getRequestDispatcher("log_in.jsp").forward(req, resp); break;
+            case "sing_up" : req.getRequestDispatcher("sing_up.jsp").forward(req, resp); break;
+        }
+//        req.getRequestDispatcher("data.jsp").forward(req, resp);
 //        try {
 //            getAllUsers();
 //        } catch (SQLException e) {

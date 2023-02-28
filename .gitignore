@@ -42,3 +42,4 @@ build/
 sql/conferencedb.mwb
 sql/conference_diagram.png
 target/
+*~

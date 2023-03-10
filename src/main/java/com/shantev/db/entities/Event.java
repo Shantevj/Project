@@ -1,4 +1,4 @@
-package com.shantev.entities;
+package com.shantev.db.entities;
 
 import com.shantev.useful.Status;
 

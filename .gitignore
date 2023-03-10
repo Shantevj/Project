@@ -43,3 +43,4 @@ sql/conferencedb.mwb
 sql/conference_diagram.png
 target/
 *~
+src/main/webapp/index.html

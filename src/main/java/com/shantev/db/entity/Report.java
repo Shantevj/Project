@@ -1,4 +1,4 @@
-package com.shantev.db.entities;
+package com.shantev.db.entity;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;

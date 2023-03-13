@@ -1,4 +1,4 @@
-package com.shantev.db.entities;
+package com.shantev.db.entity;
 
 public class User {
     private String firstName;

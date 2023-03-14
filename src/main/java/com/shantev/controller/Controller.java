@@ -1,5 +1,8 @@
 package com.shantev.controller;
 
+import com.shantev.db.dao.DAOFactory;
+import com.shantev.db.dao.mysql.MysqlUserDAO;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.servlet.ServletException;
@@ -16,6 +19,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import com.shantev.db.dao.UserDAO;
+import com.shantev.exception.DBException;
 
 @WebServlet("/main")
 
@@ -28,10 +33,25 @@ public class Controller extends HttpServlet {
 //        req.getSession().removeAttribute("attribute");
 //        String name = req.getParameter("name");
 //        req.setAttribute("userRole", "admin");
-        String command = req.getParameter("command");
-        switch (command) {
-            case "log_in" : resp.getWriter().format("%s, %s, %s", req.getParameter("login"), req.getParameter("password")); break;
-            case "sing_up" : req.getRequestDispatcher("sing_up.jsp").forward(req, resp); break;
+//        String command = req.getParameter("command");
+//        switch (command) {
+//            case "log_in" : resp.getWriter().format("%s, %s, %s", req.getParameter("login"), req.getParameter("password")); break;
+//            case "sing_up" : req.getRequestDispatcher("sing_up.jsp").forward(req, resp); break;
+//        }
+
+        DAOFactory.setDAOFactoryFQN("com.shantev.db.dao.mysql.MysqlDAOFactory");
+        DAOFactory daoFactory = null;
+        try {
+            daoFactory = DAOFactory.getInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        UserDAO userDAO = daoFactory.getUserDAO();
+        List<String> userList;
+        try {
+             userList = userDAO.getAllUsers();
+        } catch (DBException e) {
+            throw new RuntimeException(e);
         }
 //        req.getRequestDispatcher("data.jsp").forward(req, resp);
 //        try {
@@ -39,12 +59,12 @@ public class Controller extends HttpServlet {
 //        } catch (SQLException e) {
 //            throw new RuntimeException(e);
 //        }
-//        resp.setContentType("text/html");
-//        PrintWriter writer = resp.getWriter();
-//        for (String user : userList) {
-//           writer.format("<h3>%s</h3>", user);
-//        }
-//        userList.clear();
+        resp.setContentType("text/html");
+        PrintWriter writer = resp.getWriter();
+        for (String user : userList) {
+           writer.format("<h3>%s</h3>", user);
+        }
+        userList.clear();
     }
 
     @Override
@@ -56,39 +76,5 @@ public class Controller extends HttpServlet {
         }
     }
 
-    private void getAllUsers() throws SQLException {
-        Connection con = null;
-        try {
-            Context initContext = new InitialContext();
-            Context envContext  = (Context)initContext.lookup("java:/comp/env");
-            DataSource ds = (DataSource)envContext.lookup("jdbc/ConferenceDB");
-            con = ds.getConnection();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        Statement stmt = null;
-        ResultSet rs = null;
-        try {
-            stmt = con.createStatement();
-            rs = stmt.executeQuery("select * from Users");
-            while (rs.next()) {
-                String user = String.format("First name %s, last name %s <a href=\"editUser?userId=%d\">Edit</a>", rs.getString("first_name"), rs.getString("last_name"), rs.getInt(1));
-                userList.add(user);
-            }
-        } finally {
-            close(rs);
-            close(stmt);
-            close(con);
-        }
-    }
 
-    private static void close(AutoCloseable resource) {
-        if(resource != null) {
-            try {
-                resource.close();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
 }

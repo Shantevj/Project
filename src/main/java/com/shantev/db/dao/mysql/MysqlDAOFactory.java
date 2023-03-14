@@ -19,7 +19,5 @@ public class MysqlDAOFactory extends DAOFactory {
     }
 
     @Override
-    public UserDAO getUserDAO() {
-        return new MysqlUserDAO();
-    }
+    public UserDAO getUserDAO() { return new MysqlUserDAO(); }
 }

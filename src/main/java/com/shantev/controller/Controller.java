@@ -1,31 +1,22 @@
 package com.shantev.controller;
 
-import com.shantev.db.dao.DAOFactory;
-import com.shantev.db.dao.mysql.MysqlUserDAO;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
+import com.shantev.model.db.dao.DAOFactory;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import com.shantev.db.dao.UserDAO;
+import com.shantev.model.db.dao.UserDAO;
 import com.shantev.exception.DBException;
 
 @WebServlet("/main")
 
 public class Controller extends HttpServlet {
-    private static List<String> userList = new ArrayList<>();
+    private static final List<String> userList = new ArrayList<>();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getSession().setAttribute("attribute", null);
@@ -40,7 +31,7 @@ public class Controller extends HttpServlet {
 //        }
 
         DAOFactory.setDAOFactoryFQN("com.shantev.db.dao.mysql.MysqlDAOFactory");
-        DAOFactory daoFactory = null;
+        DAOFactory daoFactory;
         try {
             daoFactory = DAOFactory.getInstance();
         } catch (Exception e) {

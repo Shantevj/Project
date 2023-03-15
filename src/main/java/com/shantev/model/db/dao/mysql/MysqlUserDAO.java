@@ -1,6 +1,7 @@
-package com.shantev.db.dao.mysql;
+package com.shantev.model.db.dao.mysql;
 
-import com.shantev.db.dao.UserDAO;
+import com.shantev.model.db.dao.UserDAO;
+import com.shantev.model.db.entity.User;
 import com.shantev.exception.DBException;
 import com.shantev.exception.Messages;
 
@@ -46,6 +47,26 @@ public class MysqlUserDAO implements UserDAO {
             close(stmt);
             close(con);
         }
+    }
+
+    @Override
+    public void insertUser(User newUser) throws DBException {
+
+    }
+
+    @Override
+    public boolean updateUser(int id) throws DBException {
+        return false;
+    }
+
+    @Override
+    public User getUserById(int id) throws DBException {
+        return null;
+    }
+
+    @Override
+    public boolean deleteUser(int id) throws DBException {
+        return false;
     }
 
     private static void close(AutoCloseable resource) {

@@ -1,4 +1,4 @@
-package com.shantev.db.dao;
+package com.shantev.model.db.dao;
 
 public abstract class DAOFactory {
     private static DAOFactory instance;

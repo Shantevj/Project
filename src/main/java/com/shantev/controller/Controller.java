@@ -13,12 +13,13 @@ import java.util.List;
 import com.shantev.model.db.dao.UserDAO;
 import com.shantev.exception.DBException;
 
-@WebServlet("/main")
+//@WebServlet("/main")
 
 public class Controller extends HttpServlet {
     private static final List<String> userList = new ArrayList<>();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String supportEmail = getServletConfig().getInitParameter("supportEmail");
         req.getSession().setAttribute("attribute", null);
 //        req.getSession().getAttribute("attribute");
 //        req.getSession().removeAttribute("attribute");

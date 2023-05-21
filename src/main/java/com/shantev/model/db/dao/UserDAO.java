@@ -11,5 +11,6 @@ public interface UserDAO {
     boolean updateUser(int id) throws DBException;
     List<String> getAllUsers() throws DBException;
     User getUserById(int id) throws DBException;
+    User getUserByLogin(String login, String password) throws DBException;
     boolean deleteUser(int id) throws DBException;
 }

@@ -1,6 +1,5 @@
 package com.shantev.model.db.dao.mysql;
 
-import com.shantev.db.dao.*;
 import com.shantev.model.db.dao.*;
 
 public class MysqlDAOFactory extends DAOFactory {

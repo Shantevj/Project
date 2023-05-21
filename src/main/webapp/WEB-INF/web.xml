@@ -12,9 +12,32 @@
       <param-value>bsnsposhta@gmail.com</param-value>
     </init-param>
     <init-param>
-      <param-name>name</param-name>
-      <param-value>value</param-value>
+      <param-name>contact</param-name>
+      <param-value>+380 67 948 03 84</param-value>
     </init-param>
   </servlet>
+  <servlet-mapping>
+    <servlet-name>ControllerServlet</servlet-name>
+    <url-pattern>/main</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  <context-param>
+    <param-name>siteName</param-name>
+    <param-value>Conference planner</param-value>
+  </context-param>
+  <context-param>
+    <param-name>supportEmail</param-name>
+    <param-value>bsnsposhta@gmail.com</param-value>
+  </context-param>
+  <context-param>
+    <param-name>telephone</param-name>
+    <param-value>+380 67 948 03 84</param-value>
+  </context-param>
+  <listener>
+    <listener-class>com.shantev.model.listeners.NewServletContextListener</listener-class>
+  </listener>
 </web-app>
 

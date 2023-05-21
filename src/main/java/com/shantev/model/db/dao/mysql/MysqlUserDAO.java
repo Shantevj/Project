@@ -8,10 +8,7 @@ import com.shantev.exception.Messages;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +60,45 @@ public class MysqlUserDAO implements UserDAO {
     public User getUserById(int id) throws DBException {
         return null;
     }
+     @Override
+     public User getUserByLogin(String login, String password) throws DBException {
+         User user = null;
+         Connection con;
+         try {
+             Context initContext = new InitialContext();
+             Context envContext  = (Context)initContext.lookup("java:/comp/env");
+             DataSource ds = (DataSource)envContext.lookup("jdbc/ConferenceDB");
+             con = ds.getConnection();
+         } catch (Exception e) {
+             throw new RuntimeException(e);
+         }
+         PreparedStatement stmt = null;
+         ResultSet rs = null;
+         try {
+             stmt = con.prepareStatement("SELECT * FROM Users WHERE login=? AND password=?");
+             stmt.setString(1, login);
+             stmt.setString(2, password);
+             rs = stmt.executeQuery();
+             while (rs.next()) {
+                 String firstName = rs.getString(2);
+                 String lastName = rs.getString(3);
+                 String logIn = rs.getString(4);
+                 String passwd = rs.getString(5);
+                 String role = rs.getString(6);
+                 user = new User(firstName, lastName, logIn, passwd, role);
+             }
+             return user;
+         } catch (SQLException ex) {
+             //Add logging
+             throw new DBException(Messages.CANNOT_OBTAIN_ALL_USERS, ex);
+
+         }
+         finally {
+             close(rs);
+             close(stmt);
+             close(con);
+         }
+     }
 
     @Override
     public boolean deleteUser(int id) throws DBException {

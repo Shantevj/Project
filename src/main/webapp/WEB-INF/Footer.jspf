@@ -1,0 +1,39 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+<footer class="section footer-classic context-dark bg-image fixed-bottom" style="background: #2d3246;">
+        <div class="container">
+          <div class="row row-30">
+            <div class="col-md-4 col-xl-5">
+              <div class="pr-xl-4">
+                <p>We are a young, fast-growing project that allows users from all over the world to hold conferences.</p>
+                <!-- Rights-->
+                <p class="rights"><span>©  </span><span class="copyright-year">2020</span><span> </span><span>Company</span><span> - </span><span>All Rights Reserved.</span></p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <h5>Contacts</h5>
+              <dl class="contact-list">
+                <dt>Address:</dt>
+                <dd>31 Tech Street, Dnipro, Ukraine</dd>
+              </dl>
+              <dl class="contact-list">
+                <dt>email:</dt>
+                <dd><a href="mailto:#">${initParam.supportEmail}</a></dd>
+              </dl>
+              <dl class="contact-list">
+                <dt>phone:</dt>
+                <dd><a href="tel:#">${initParam.telephone}</a></dd>
+              </dl>
+            </div>
+            <div class="col-md-4 col-xl-3">
+              <h5>Links</h5>
+              <ul class="nav-list">
+                <li><a href="#">About</a></li>
+                <li><a href="#">Projects</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Contacts</a></li>
+                <li><a href="#">Pricing</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>

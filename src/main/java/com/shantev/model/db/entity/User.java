@@ -1,19 +1,28 @@
 package com.shantev.model.db.entity;
 
+import com.shantev.useful.Role;
+
 public class User {
+    private int id;
     private String firstName;
     private String lastName;
     private String login;
     private String password;
-    private String role;
+    private Role role;
+    public User() {}
 
-    public User(String firstName, String lastName, String login, String password, String role) {
+    public User(int id, String firstName, String lastName, String login, String password, Role role) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.login = login;
         this.password = password;
         this.role = role;
     }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
     public String getFirstName() {
         return firstName;
@@ -45,6 +54,10 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Role getRole() {
+        return this.role;
     }
 
     @Override

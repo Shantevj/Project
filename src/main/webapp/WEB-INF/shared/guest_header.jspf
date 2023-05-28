@@ -1,0 +1,9 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+<div class="header">
+  <a href="#default" class="logo">${initParam.siteName}</a>
+  <div class="header-right">
+    <div class="btn btn-info"><a class="active" href="#">Main page</a></div>
+    <div class="btn btn-primary"><a href="log_in.jsp">Log in</a></div>
+    <div class="btn btn-primary"><a href="sign_up.jsp">Sign up</a></div>
+  </div>
+</div>

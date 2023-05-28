@@ -15,6 +15,7 @@ public class Event {
     private List<Report> reportList = new ArrayList<>();
     private List<User> participants = new ArrayList<>();
 
+    public Event() {}
     public Event(String theme, Status status, String address, String description, Timestamp date) {
         this.theme = theme;
         this.status = status;

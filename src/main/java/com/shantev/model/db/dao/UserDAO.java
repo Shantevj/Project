@@ -7,10 +7,14 @@ import java.util.List;
 
 public interface UserDAO {
 
-    void insertUser(User newUser) throws DBException;
+    void registerUserForEvent(int eventID, int userId) throws DBException;
+    User insertUser(String firstName, String lastName, String login, String password) throws DBException;
     boolean updateUser(int id) throws DBException;
     List<String> getAllUsers() throws DBException;
     User getUserById(int id) throws DBException;
-    User getUserByLogin(String login, String password) throws DBException;
+    User getUserByLoginAndPassword(String login, String password) throws DBException;
+    boolean blockUser(int id) throws DBException;
+    boolean unblockUser(int id) throws DBException;
     boolean deleteUser(int id) throws DBException;
+
 }

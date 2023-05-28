@@ -1,0 +1,22 @@
+    <div class="header">
+        <a href="#default" class="logo">${initParam.siteName}</a>
+        <div class="header-right">
+            <div class="btn btn-info"><a href="#home">Main page</a></div>            
+            <div class="btn btn-primary"><a href="#home">Requests</a></div>
+            <div class="btn btn-primary dropdown">Events
+                <div class="dropdown-content">
+                    <a href="#home">Science</a>
+                    <a href="#home">IT</a>
+                    <a href="#home">Tech</a>
+                    <a href="#home">Bussines</a>
+                    <a href="#home">Enviro</a>
+                    <a href="#home">Health</a>
+                    <a href="#home">Society</a>
+                    <a href="#home">Life</a>
+                    <a href="#home">Other</a>
+                </div>                
+            </div>
+            <div class="btn btn-success"><a href="#home">My account</a></div>
+            <div class="btn btn-danger"><a href="main?command=log_out">Log out</a></div>
+        </div>
+    </div>

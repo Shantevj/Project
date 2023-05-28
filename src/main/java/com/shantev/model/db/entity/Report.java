@@ -11,6 +11,7 @@ public class Report {
     private String description;
     private List<User> narrators = new ArrayList<>();
 
+    public Report() {}
     public Report(String topic, Timestamp startTime, Timestamp endTime, String description) {
         this.topic = topic;
         this.startTime = startTime;

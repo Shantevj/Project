@@ -10,25 +10,38 @@
 
       <head>
         <link rel="stylesheet" href="styles/style.css">
+        <link rel="stylesheet" href="styles/header_style.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-        <title>Conference site (Welcome page)</title>
+        <title>Conference site</title>
       </head>
 
       <body>
-        <c:if test="${empty user}">
-          <%@include file="WEB-INF/GuestHeader.jspf" %>
-        </c:if>
-        <c:if test="${not empty user}">
-          <%@include file="WEB-INF/Header.jspf" %>
-        </c:if>
+       <c:if test="${empty user}">
+          <%@include file="WEB-INF/guest_header.jspf" %>
+       </c:if>
+       <c:if test="${not empty user}">
+        <c:choose>
+        <c:when test="${user.role == 'ADMIN'}">
+          <%@include file="WEB-INF/admin/admin_header.jspf" %>
+        </c:when>
+        <c:when test="${user.role == 'MANAGER'}">
+          <%@include file="WEB-INF/manager/manager_header.jspf" %>
+        </c:when>
+        <c:when test="${user.role == 'SPEAKER'}">
+          <%@include file="WEB-INF/speaker/speaker_header.jspf" %>
+        </c:when>
+        <c:when test="${user.role == 'USER'}">
+          <%@include file="WEB-INF/user/user_header.jspf" %>
+        </c:when>
+       </c:choose>
+      </c:if>
 
         <c:if test="${empty user}">
-          <h3>Hello, guest! To register on the conference, please consider logging to your account</h3>
+          <h3>Hello, guest! To register on the conference, please consider logging to your account or you can create new one.</h3>
         </c:if>
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>Id</th>
               <th>Theme</th>
               <th>Category</th>
               <th>Date</th>
@@ -47,16 +60,16 @@
                 <td>${row[5]}</td>
                 <td>${row[6]}</td>
                 <td>
-                  <form action="main" method="POST">
-                    <input type="hidden" name="eventID" value="${row[0]}" />
-                    <input type="submit" class="btn btn-primary" value="Зареєструватися" />
+                  <form action="main?command=register_for_event" method="POST">
+                    <input type="hidden" name="eventId" value="${row[0]}" />
+                    <input type="submit" class="btn btn-primary" value="Register" />
                   </form>
                 </td>
               </tr>
             </c:forEach>
           </tbody>
         </table>
-        <%@include file="WEB-INF/Footer.jspf" %>
+        <%@include file="WEB-INF/shared/footer.jspf" %>
       </body>
 
       </html>

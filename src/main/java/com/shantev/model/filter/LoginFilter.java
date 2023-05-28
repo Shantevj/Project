@@ -10,7 +10,7 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
-        if(req.getParameter("command").equals("register_for_event") && req.getSession().getAttribute("user") == null) {
+        if(!req.getParameter("command").equals("log_in") && !req.getParameter("command").equals("sign_up") && req.getSession().getAttribute("user") == null) {
             resp.sendRedirect("log_in.jsp");
         }
         else filterChain.doFilter(req, resp);

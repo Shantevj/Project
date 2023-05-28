@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <!DOCTYPE html>
     <html lang="en">
 
@@ -6,8 +7,8 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="styles/login_style.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="styles/login_style.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
         <title>Login page</title>
     </head>
 
@@ -19,13 +20,16 @@
                         <div id="login-box" class="col-md-12">
                             <form id="login-form" class="form" action="main?command=log_in" method="POST">
                                 <h3 class="text-center text-info">Login</h3>
+                                <c:if test="${login_failed eq 'failed'}">
+                                    <div id="failed">Incorrect login data</div>
+                                </c:if>
                                 <div class="form-group">
                                     <label for="login" class="text-info">Email</label>
-                                    <input type="text" name="login" id="email" class="form-control">
+                                    <input type="email" name="login" id="email" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="password" class="text-info">Password</label>
-                                    <input type="password" name="password" id="password" class="form-control">
+                                    <input type="password" name="password" id="password" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <input type="submit" class="btn btn-info btn-md" value="Login" />

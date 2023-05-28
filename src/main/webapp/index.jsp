@@ -9,9 +9,9 @@
       <html>
 
       <head>
-        <link rel="stylesheet" href="styles/style.css">
-        <link rel="stylesheet" href="styles/header_style.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="styles/style.css">
+        <link rel="stylesheet" type="text/css" href="styles/header_style.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
         <title>Conference site</title>
       </head>
 

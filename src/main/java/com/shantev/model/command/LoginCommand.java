@@ -22,6 +22,11 @@ public class LoginCommand extends Command {
         UserDAO userDAO = daoFactory.getUserDAO();
         try {
             User user = userDAO.getUserByLoginAndPassword(login, password);
+            if(user == null) {
+                req.getSession().setAttribute("login_failed", "failed");
+                return "log_in.jsp";
+            }
+            req.getSession().removeAttribute("login_failed");
             req.getSession().setAttribute("user", user);
         } catch (DBException e) {
             throw new RuntimeException(e);

@@ -15,10 +15,10 @@ body {
 }
 
 .header a {
-    float: left;
+    /* float: left; */
     color: white;
     text-align: center;
-    font-size: 15px;
+    /* font-size: 15px; */
 }
 
 .header a.logo {
@@ -31,15 +31,10 @@ body {
     float: right;
 }
 
-.dropdown {
+/* .dropdown {
     position: relative;
     display: inline-block;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
+} */
 
 .dropdown-content {
     display: none;

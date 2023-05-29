@@ -31,7 +31,6 @@ public class LoginCommand extends Command {
         } catch (DBException e) {
             throw new RuntimeException(e);
         }
-        //add path`s if user.role is admin --> admin main page if user.role is manager --> manager main page
         return "index.jsp";
     }
 }

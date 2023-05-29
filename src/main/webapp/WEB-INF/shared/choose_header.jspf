@@ -1,0 +1,14 @@
+<c:choose>
+    <c:when test="${user.role == 'ADMIN'}">
+          <%@include file="../admin/admin_header.jspf" %>
+    </c:when>
+    <c:when test="${user.role == 'MANAGER'}">
+          <%@include file="../manager/manager_header.jspf" %>
+    </c:when>
+    <c:when test="${user.role == 'SPEAKER'}">
+          <%@include file="../speaker/speaker_header.jspf" %>
+    </c:when>
+    <c:when test="${user.role == 'USER'}">
+          <%@include file="../user/user_header.jspf" %>
+    </c:when>
+</c:choose>

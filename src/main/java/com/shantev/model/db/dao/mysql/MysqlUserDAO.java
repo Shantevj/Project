@@ -156,14 +156,13 @@ public class MysqlUserDAO implements UserDAO {
             stmt = con.prepareStatement(Constants.BLOCK_USER);
             stmt.setInt(1, id);
             int rowAffected = stmt.executeUpdate();
-            if (rowAffected > 0) return true;
+            return (rowAffected > 0);
         } catch (SQLException ex) {
             throw new DBException(Messages.CANNOT_BLOCK_USER, ex);
         } finally {
             close(stmt);
             close(con);
         }
-        return false;
     }
 
     public boolean unblockUser(int id) throws DBException {
@@ -173,16 +172,68 @@ public class MysqlUserDAO implements UserDAO {
             stmt = con.prepareStatement(Constants.UNBLOCK_USER);
             stmt.setInt(1, id);
             int rowAffected = stmt.executeUpdate();
-            if (rowAffected > 0) return true;
+            return (rowAffected > 0);
         } catch (SQLException ex) {
             throw new DBException(Messages.CANNOT_UNBLOCK_USER, ex);
         } finally {
             close(stmt);
             close(con);
         }
-        return false;
     }
 
+    @Override
+    public boolean changeFirstName(String firstName, int id) throws DBException {
+        Connection con = getConnection();
+        PreparedStatement stmt = null;
+        try {
+            stmt = con.prepareStatement(Constants.CHANGE_USER_FIRST_NAME);
+            stmt.setString(1, firstName);
+            stmt.setInt(2, id);
+            int rowsAffected = stmt.executeUpdate();
+            return (rowsAffected > 0);
+
+        } catch (SQLException e) {
+            throw new DBException(Messages.CANNOT_CHANGE_USER_FIRST_NAME,e);
+        } finally {
+            close(stmt);
+            close(con);
+        }
+    }
+    @Override
+    public boolean changeLastName(String firstName, int id) throws DBException {
+        Connection con = getConnection();
+        PreparedStatement stmt = null;
+        try {
+            stmt = con.prepareStatement(Constants.CHANGE_USER_LAST_NAME);
+            stmt.setString(1, firstName);
+            stmt.setInt(2, id);
+            int rowsAffected = stmt.executeUpdate();
+            return (rowsAffected > 0);
+
+        } catch (SQLException e) {
+            throw new DBException(Messages.CANNOT_CHANGE_USER_LAST_NAME,e);
+        } finally {
+            close(stmt);
+            close(con);
+        }
+    }@Override
+    public boolean changePassword(String firstName, int id) throws DBException {
+        Connection con = getConnection();
+        PreparedStatement stmt = null;
+        try {
+            stmt = con.prepareStatement(Constants.CHANGE_USER_PASSWORD);
+            stmt.setString(1, firstName);
+            stmt.setInt(2, id);
+            int rowsAffected = stmt.executeUpdate();
+            return (rowsAffected > 0);
+
+        } catch (SQLException e) {
+            throw new DBException(Messages.CANNOT_CHANGE_USER_PASSWORD,e);
+        } finally {
+            close(stmt);
+            close(con);
+        }
+    }
     private static void close(AutoCloseable resource) {
         if (resource != null) {
             try {

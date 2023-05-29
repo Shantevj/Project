@@ -20,7 +20,6 @@
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
         <url-pattern>/main</url-pattern>
-        <url-pattern>/log_out</url-pattern>
     </servlet-mapping>
     <!--Encoding filter-->
     <filter>

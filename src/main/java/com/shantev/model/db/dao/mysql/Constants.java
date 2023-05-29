@@ -7,4 +7,7 @@ public class Constants {
     public static String REGISTER_USER_FOR_EVENT = "INSERT INTO Events_has_Users VALUES(?, ?)";
     public static String BLOCK_USER = "UPDATE Users SET role_id=5 WHERE id=?";
     public static String UNBLOCK_USER = "UPDATE Users SET role_id=4 WHERE id=?";
+    public static String CHANGE_USER_FIRST_NAME = "UPDATE Users SET first_name=? WHERE id=?";
+    public static String CHANGE_USER_LAST_NAME = "UPDATE Users SET last_name=? WHERE id=?";
+    public static String CHANGE_USER_PASSWORD = "UPDATE Users SET password=? WHERE id=?";
 }

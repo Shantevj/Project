@@ -15,6 +15,9 @@ public interface UserDAO {
     User getUserByLoginAndPassword(String login, String password) throws DBException;
     boolean blockUser(int id) throws DBException;
     boolean unblockUser(int id) throws DBException;
+    boolean changeFirstName(String firstName, int id) throws DBException;
+    boolean changeLastName(String lastName, int id) throws DBException;
+    boolean changePassword(String password, int id) throws DBException;
     boolean deleteUser(int id) throws DBException;
 
 }

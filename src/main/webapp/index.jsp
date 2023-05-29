@@ -20,20 +20,7 @@
           <%@include file="WEB-INF/guest_header.jspf" %>
        </c:if>
        <c:if test="${not empty user}">
-        <c:choose>
-        <c:when test="${user.role == 'ADMIN'}">
-          <%@include file="WEB-INF/admin/admin_header.jspf" %>
-        </c:when>
-        <c:when test="${user.role == 'MANAGER'}">
-          <%@include file="WEB-INF/manager/manager_header.jspf" %>
-        </c:when>
-        <c:when test="${user.role == 'SPEAKER'}">
-          <%@include file="WEB-INF/speaker/speaker_header.jspf" %>
-        </c:when>
-        <c:when test="${user.role == 'USER'}">
-          <%@include file="WEB-INF/user/user_header.jspf" %>
-        </c:when>
-       </c:choose>
+          <%@include file="WEB-INF/shared/choose_header.jspf" %>
       </c:if>
 
         <c:if test="${empty user}">

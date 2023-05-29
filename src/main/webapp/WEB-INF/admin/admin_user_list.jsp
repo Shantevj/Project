@@ -31,6 +31,22 @@
                 <td>${row[2]}</td>
                 <td>${row[3]}</td>
                 <td>${row[4]}</td>
+                <c:if test="${param.type eq 'regular_user'}">
+                 <td>
+                  <form action="main?command=set_admin" method="POST">
+                    <input type="hidden" name="userId" value="${row[0]}" />
+                    <input type="submit" class="btn btn-warning" value="Set user as admin" />
+                  </form>
+                 </td>
+                </c:if>
+                <c:if test="${param.type eq 'admin'}">
+                 <td>
+                  <form action="main?command=delete_admin" method="POST">
+                    <input type="hidden" name="userId" value="${row[0]}" />
+                    <input type="submit" class="btn btn-warning" value="Delete admin" />
+                  </form>
+                 </td>
+                </c:if>
                 <c:choose>
                  <c:when test="${param.type != 'banned_user'}">
                  <td>

@@ -9,5 +9,7 @@ public class Messages {
     public static final String CANNOT_CHANGE_USER_FIRST_NAME = "User first name was not changed";
     public static final String CANNOT_CHANGE_USER_LAST_NAME = "User last name was not changed";
     public static final String CANNOT_CHANGE_USER_PASSWORD = "User password was not changed";
+    public static final String CANNOT_SET_ADMIN = "User was not appointed as admin";
+    public static final String CANNOT_DELETE_ADMIN = "Admin was not deleted";
 }
 

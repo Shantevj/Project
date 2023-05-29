@@ -10,4 +10,6 @@ public class Constants {
     public static String CHANGE_USER_FIRST_NAME = "UPDATE Users SET first_name=? WHERE id=?";
     public static String CHANGE_USER_LAST_NAME = "UPDATE Users SET last_name=? WHERE id=?";
     public static String CHANGE_USER_PASSWORD = "UPDATE Users SET password=? WHERE id=?";
+    public static String SET_ADMIN = "UPDATE Users SET role_id=1 WHERE id=?";
+    public static String DELETE_ADMIN = "UPDATE Users SET role_id=4 WHERE id=?";
 }

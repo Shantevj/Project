@@ -18,6 +18,8 @@ public interface UserDAO {
     boolean changeFirstName(String firstName, int id) throws DBException;
     boolean changeLastName(String lastName, int id) throws DBException;
     boolean changePassword(String password, int id) throws DBException;
+    boolean setAdmin(int id) throws DBException;
+    boolean deleteAdmin(int id) throws DBException;
     boolean deleteUser(int id) throws DBException;
 
 }

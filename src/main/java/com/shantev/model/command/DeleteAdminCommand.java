@@ -7,7 +7,7 @@ import com.shantev.model.db.dao.UserDAO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UnblockUserCommand extends Command {
+public class DeleteAdminCommand extends Command{
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         int id = Integer.parseInt(req.getParameter("userId"));
@@ -19,10 +19,10 @@ public class UnblockUserCommand extends Command {
         }
         UserDAO userDAO = daoFactory.getUserDAO();
         try {
-            boolean wasUserUnblocked = userDAO.unblockUser(id);
+            boolean wasUserSetAsAdmin = userDAO.deleteAdmin(id);
         } catch (DBException e) {
             throw new RuntimeException(e);
         }
-        return "main?command=select_users&type=banned_user";
+        return "main?command=select_users&type=admin";
     }
 }

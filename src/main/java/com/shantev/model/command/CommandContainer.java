@@ -17,6 +17,8 @@ public class CommandContainer {
         commandMap.put("unblock_user", new UnblockUserCommand());
         commandMap.put("my_account", new AccountInfoCommand());
         commandMap.put("change_my_info", new ChangeAccountInfoCommand());
+        commandMap.put("set_admin", new SetAdminCommand());
+        commandMap.put("delete_admin", new DeleteAdminCommand());
 //        commandMap.put("log_in", new LoginCommand());
 //        commandMap.put("log_in", new LoginCommand());
     }

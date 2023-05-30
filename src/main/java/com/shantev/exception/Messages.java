@@ -11,5 +11,9 @@ public class Messages {
     public static final String CANNOT_CHANGE_USER_PASSWORD = "User password was not changed";
     public static final String CANNOT_SET_ADMIN = "User was not appointed as admin";
     public static final String CANNOT_DELETE_ADMIN = "Admin was not deleted";
+    public static final String CANNOT_SET_MANAGER = "User was not appointed as manager";
+    public static final String CANNOT_DELETE_MANAGER = "Manager was not deleted";
+    public static final String CANNOT_SET_SPEAKER = "User was not appointed as speaker";
+    public static final String CANNOT_DELETE_SPEAKER = "Speaker was not deleted";
 }
 

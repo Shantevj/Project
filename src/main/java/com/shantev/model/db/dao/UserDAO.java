@@ -20,6 +20,10 @@ public interface UserDAO {
     boolean changePassword(String password, int id) throws DBException;
     boolean setAdmin(int id) throws DBException;
     boolean deleteAdmin(int id) throws DBException;
+    boolean setManager(int id) throws DBException;
+    boolean deleteManager(int id) throws DBException;
+    boolean setSpeaker(int id) throws DBException;
+    boolean deleteSpeaker(int id) throws DBException;
     boolean deleteUser(int id) throws DBException;
 
 }

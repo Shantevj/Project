@@ -38,12 +38,26 @@
                     <input type="submit" class="btn btn-warning" value="Set user as admin" />
                   </form>
                  </td>
+                 <td>
+                  <form action="main?command=set_manager" method="POST">
+                    <input type="hidden" name="userId" value="${row[0]}" />
+                    <input type="submit" class="btn btn-warning" value="Set user as manager" />
+                  </form>
+                 </td>
                 </c:if>
                 <c:if test="${param.type eq 'admin'}">
                  <td>
                   <form action="main?command=delete_admin" method="POST">
                     <input type="hidden" name="userId" value="${row[0]}" />
                     <input type="submit" class="btn btn-warning" value="Delete admin" />
+                  </form>
+                 </td>
+                </c:if>
+                <c:if test="${param.type eq 'manager'}">
+                 <td>
+                  <form action="main?command=delete_manager" method="POST">
+                    <input type="hidden" name="userId" value="${row[0]}" />
+                    <input type="submit" class="btn btn-warning" value="Delete manager" />
                   </form>
                  </td>
                 </c:if>

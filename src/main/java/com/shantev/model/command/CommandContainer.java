@@ -19,6 +19,10 @@ public class CommandContainer {
         commandMap.put("change_my_info", new ChangeAccountInfoCommand());
         commandMap.put("set_admin", new SetAdminCommand());
         commandMap.put("delete_admin", new DeleteAdminCommand());
+        commandMap.put("set_manager", new SetManagerCommand());
+        commandMap.put("delete_manager", new DeleteManagerCommand());
+        commandMap.put("set_speaker", new SetSpeakerCommand());
+        commandMap.put("delete_speaker", new DeleteSpeakerCommand());
 //        commandMap.put("log_in", new LoginCommand());
 //        commandMap.put("log_in", new LoginCommand());
     }

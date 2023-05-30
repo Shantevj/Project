@@ -37,6 +37,7 @@ public class MysqlUserDAO implements UserDAO {
             close(con);
         }
     }
+
     @Override
     public void registerUserForEvent(int eventId, int userId) throws DBException {
         Connection con = getConnection();
@@ -54,6 +55,7 @@ public class MysqlUserDAO implements UserDAO {
             close(con);
         }
     }
+
     @Override
     public User insertUser(String firstName, String lastName, String login, String password) throws DBException {
         User user = null;
@@ -84,6 +86,7 @@ public class MysqlUserDAO implements UserDAO {
         }
 
     }
+
     @Override
     public boolean updateUser(int id) throws DBException {
         return false;
@@ -125,10 +128,12 @@ public class MysqlUserDAO implements UserDAO {
             close(con);
         }
     }
+
     @Override
     public boolean deleteUser(int id) throws DBException {
         return false;
     }
+
     @Override
     public boolean blockUser(int id) throws DBException {
         Connection con = getConnection();
@@ -145,6 +150,7 @@ public class MysqlUserDAO implements UserDAO {
             close(con);
         }
     }
+
     public boolean unblockUser(int id) throws DBException {
         Connection con = getConnection();
         PreparedStatement stmt = null;
@@ -160,6 +166,7 @@ public class MysqlUserDAO implements UserDAO {
             close(con);
         }
     }
+
     @Override
     public boolean changeFirstName(String firstName, int id) throws DBException {
         Connection con = getConnection();
@@ -172,12 +179,13 @@ public class MysqlUserDAO implements UserDAO {
             return (rowsAffected > 0);
 
         } catch (SQLException ex) {
-            throw new DBException(Messages.CANNOT_CHANGE_USER_FIRST_NAME,ex);
+            throw new DBException(Messages.CANNOT_CHANGE_USER_FIRST_NAME, ex);
         } finally {
             close(stmt);
             close(con);
         }
     }
+
     @Override
     public boolean changeLastName(String firstName, int id) throws DBException {
         Connection con = getConnection();
@@ -190,12 +198,13 @@ public class MysqlUserDAO implements UserDAO {
             return (rowsAffected > 0);
 
         } catch (SQLException ex) {
-            throw new DBException(Messages.CANNOT_CHANGE_USER_LAST_NAME,ex);
+            throw new DBException(Messages.CANNOT_CHANGE_USER_LAST_NAME, ex);
         } finally {
             close(stmt);
             close(con);
         }
     }
+
     @Override
     public boolean changePassword(String firstName, int id) throws DBException {
         Connection con = getConnection();
@@ -208,12 +217,13 @@ public class MysqlUserDAO implements UserDAO {
             return (rowsAffected > 0);
 
         } catch (SQLException ex) {
-            throw new DBException(Messages.CANNOT_CHANGE_USER_PASSWORD,ex);
+            throw new DBException(Messages.CANNOT_CHANGE_USER_PASSWORD, ex);
         } finally {
             close(stmt);
             close(con);
         }
     }
+
     @Override
     public boolean setAdmin(int id) throws DBException {
         Connection con = getConnection();
@@ -248,6 +258,74 @@ public class MysqlUserDAO implements UserDAO {
         }
     }
 
+    @Override
+    public boolean setManager(int id) throws DBException {
+        Connection con = getConnection();
+        PreparedStatement stmt = null;
+        try {
+            stmt = con.prepareStatement(Constants.SET_MANAGER);
+            stmt.setInt(1, id);
+            int rowsAffected = stmt.executeUpdate();
+            return (rowsAffected > 0);
+        } catch (SQLException ex) {
+            throw new DBException(Messages.CANNOT_SET_MANAGER, ex);
+        } finally {
+            close(stmt);
+            close(con);
+        }
+    }
+
+    @Override
+    public boolean deleteManager(int id) throws DBException {
+        Connection con = getConnection();
+        PreparedStatement stmt = null;
+        try {
+            stmt = con.prepareStatement(Constants.DELETE_MANAGER);
+            stmt.setInt(1, id);
+            int rowsAffected = stmt.executeUpdate();
+            return (rowsAffected > 0);
+        } catch (SQLException ex) {
+            throw new DBException(Messages.CANNOT_DELETE_MANAGER, ex);
+        } finally {
+            close(stmt);
+            close(con);
+        }
+    }
+
+    @Override
+    public boolean setSpeaker(int id) throws DBException {
+        Connection con = getConnection();
+        PreparedStatement stmt = null;
+        try {
+            stmt = con.prepareStatement(Constants.SET_SPEAKER);
+            stmt.setInt(1, id);
+            int rowsAffected = stmt.executeUpdate();
+            return (rowsAffected > 0);
+        } catch (SQLException ex) {
+            throw new DBException(Messages.CANNOT_SET_MANAGER, ex);
+        } finally {
+            close(stmt);
+            close(con);
+        }
+    }
+
+    @Override
+    public boolean deleteSpeaker(int id) throws DBException {
+        Connection con = getConnection();
+        PreparedStatement stmt = null;
+        try {
+            stmt = con.prepareStatement(Constants.DELETE_SPEAKER);
+            stmt.setInt(1, id);
+            int rowsAffected = stmt.executeUpdate();
+            return (rowsAffected > 0);
+        } catch (SQLException ex) {
+            throw new DBException(Messages.CANNOT_DELETE_SPEAKER, ex);
+        } finally {
+            close(stmt);
+            close(con);
+        }
+    }
+
     private static Connection getConnection() throws DBException {
         Connection con;
         try {
@@ -260,6 +338,7 @@ public class MysqlUserDAO implements UserDAO {
         }
         return con;
     }
+
     private static void close(AutoCloseable resource) {
         if (resource != null) {
             try {

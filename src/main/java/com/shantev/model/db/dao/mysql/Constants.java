@@ -12,4 +12,8 @@ public class Constants {
     public static String CHANGE_USER_PASSWORD = "UPDATE Users SET password=? WHERE id=?";
     public static String SET_ADMIN = "UPDATE Users SET role_id=1 WHERE id=?";
     public static String DELETE_ADMIN = "UPDATE Users SET role_id=4 WHERE id=?";
+    public static String SET_MANAGER = "UPDATE Users SET role_id=2 WHERE id=?";
+    public static String DELETE_MANAGER = "UPDATE Users SET role_id=4 WHERE id=?";
+    public static String SET_SPEAKER = "UPDATE Users SET role_id=3 WHERE id=?";
+    public static String DELETE_SPEAKER = "UPDATE Users SET role_id=4 WHERE id=?";
 }

@@ -19,7 +19,7 @@ public class SetAdminCommand extends Command{
         }
         UserDAO userDAO = daoFactory.getUserDAO();
         try {
-            boolean wasUserSetAsAdmin = userDAO.setAdmin(id);
+            userDAO.setAdmin(id);
         } catch (DBException e) {
             throw new RuntimeException(e);
         }

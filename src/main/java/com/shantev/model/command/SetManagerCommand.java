@@ -7,7 +7,7 @@ import com.shantev.model.db.dao.UserDAO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class DeleteAdminCommand extends Command{
+public class SetManagerCommand extends Command{
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         int id = Integer.parseInt(req.getParameter("userId"));
@@ -19,10 +19,11 @@ public class DeleteAdminCommand extends Command{
         }
         UserDAO userDAO = daoFactory.getUserDAO();
         try {
-            userDAO.deleteAdmin(id);
+            userDAO.setManager(id);
         } catch (DBException e) {
             throw new RuntimeException(e);
         }
-        return "main?command=select_users&type=admin";
+        return "main?command=select_users&type=regular_user";
     }
 }
+

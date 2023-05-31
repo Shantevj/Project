@@ -14,23 +14,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MysqlUserDAO implements UserDAO {
-    public List<String> getAllUsers() throws DBException {
-        List<String> userList = new ArrayList<>();
+    public User getUserById(int id) throws DBException {
+        User user = null;
         Connection con = getConnection();
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(Constants.GET_ALL_USERS);
-            while (rs.next()) {
-                String user = String.format("First name %s, last name %s <a href=\"editUser?userId=%d\">Edit</a>", rs.getString("first_name"), rs.getString("last_name"), rs.getInt(1));
-                userList.add(user);
+            stmt = con.prepareStatement(Constants.GET_USER_BY_ID);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("id"));
+                user.setFirstName(rs.getString("first_name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setLogin(rs.getString(rs.getString("login")));
+                user.setPassword(rs.getString("password"));
+                user.setRole(Role.getRole(rs.getInt("role_id")));
             }
-            return userList;
+            return user;
         } catch (SQLException ex) {
-            //Add logging
-            throw new DBException(Messages.CANNOT_OBTAIN_ALL_USERS, ex);
-
+            throw new DBException(Messages.CANNOT_OBTAIN_USER, ex);
         } finally {
             close(rs);
             close(stmt);
@@ -39,46 +43,57 @@ public class MysqlUserDAO implements UserDAO {
     }
 
     @Override
-    public void registerUserForEvent(int eventId, int userId) throws DBException {
+    public List<User> getAllUsers() throws DBException {
+        List<User> userList = new ArrayList<>();
         Connection con = getConnection();
-        PreparedStatement stmt = null;
+        Statement stmt = null;
+        ResultSet rs = null;
         try {
-            stmt = con.prepareStatement(Constants.REGISTER_USER_FOR_EVENT);
-            stmt.setInt(1, eventId);
-            stmt.setInt(2, userId);
-            stmt.executeUpdate();
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(Constants.GET_ALL_USERS);
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setFirstName(rs.getString("first_name"));
+                user.setLastName(rs.getString("last_name"));
+                user.setLogin(rs.getString("login"));
+                user.setPassword(rs.getString("password"));
+                user.setRole(Role.getRole(rs.getInt("role_id")));
+                userList.add(user);
+            }
+            return userList;
         } catch (SQLException ex) {
-//            Add logging
-            throw new DBException(Messages.CANNOT_REGISTER_USER_FOR_EVENT, ex);
+            //Add logging
+            throw new DBException(Messages.CANNOT_OBTAIN_ALL_USERS, ex);
         } finally {
+            close(rs);
             close(stmt);
             close(con);
         }
     }
 
     @Override
-    public User insertUser(String firstName, String lastName, String login, String password) throws DBException {
-        User user = null;
+    public void addNewUser(User user) throws DBException {
         Connection con = getConnection();
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(Constants.ADD_NEW_USER, PreparedStatement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, firstName);
-            stmt.setString(2, lastName);
-            stmt.setString(3, login);
-            stmt.setString(4, password);
+            stmt.setString(1, user.getFirstName());
+            stmt.setString(2, user.getLastName());
+            stmt.setString(3, user.getLogin());
+            stmt.setString(4, user.getPassword());
+            stmt.setInt(5, user.getRole().getRoleId());
             int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected > 0) {
-                try (ResultSet rs = stmt.getGeneratedKeys()) {
-                    if (rs.next()) {
+            if(rowsAffected > 0) {
+                try(ResultSet rs = stmt.getGeneratedKeys()) {
+                    if(rs.next()) {
                         int id = rs.getInt(1);
-                        user = new User(id, firstName, lastName, login, password, Role.USER);
+                        user.setId(id);
                     }
                 }
             }
-            return user;
-        } catch (SQLException ex) {
-            //Add logging
+
+        } catch(SQLException ex) {
             throw new DBException(Messages.CANNOT_ADD_USER, ex);
         } finally {
             close(stmt);
@@ -86,15 +101,26 @@ public class MysqlUserDAO implements UserDAO {
         }
 
     }
-
     @Override
-    public boolean updateUser(int id) throws DBException {
-        return false;
-    }
+    public void updateUser(User user) throws DBException {
+        Connection con = getConnection();
+        PreparedStatement stmt = null;
+        try {
+            stmt = con.prepareStatement(Constants.UPDATE_USER);
+            stmt.setString(1, user.getFirstName());
+            stmt.setString(2, user.getLastName());
+            stmt.setString(3, user.getLogin());
+            stmt.setString(4, user.getPassword());
+            stmt.setInt(5, user.getRole().getRoleId());
+            stmt.setInt(6, user.getId());
+            int rowsAffected = stmt.executeUpdate();
 
-    @Override
-    public User getUserById(int id) throws DBException {
-        return null;
+        } catch (SQLException ex) {
+            throw new DBException(Messages.CANNOT_ADD_USER, ex);
+        } finally {
+            close(stmt);
+            close(con);
+        }
     }
 
     @Override
@@ -130,202 +156,20 @@ public class MysqlUserDAO implements UserDAO {
     }
 
     @Override
-    public boolean deleteUser(int id) throws DBException {
-        return false;
-    }
-
-    @Override
-    public boolean blockUser(int id) throws DBException {
+    public void deleteUser(User user) throws DBException {
         Connection con = getConnection();
         PreparedStatement stmt = null;
         try {
-            stmt = con.prepareStatement(Constants.BLOCK_USER);
-            stmt.setInt(1, id);
+            stmt = con.prepareStatement(Constants.DELETE_USER);
+            stmt.setInt(1, user.getId());
             int rowAffected = stmt.executeUpdate();
-            return (rowAffected > 0);
         } catch (SQLException ex) {
-            throw new DBException(Messages.CANNOT_BLOCK_USER, ex);
+            throw new DBException(Messages.CANNOT_DELETE_USER, ex);
         } finally {
             close(stmt);
             close(con);
         }
     }
-
-    public boolean unblockUser(int id) throws DBException {
-        Connection con = getConnection();
-        PreparedStatement stmt = null;
-        try {
-            stmt = con.prepareStatement(Constants.UNBLOCK_USER);
-            stmt.setInt(1, id);
-            int rowAffected = stmt.executeUpdate();
-            return (rowAffected > 0);
-        } catch (SQLException ex) {
-            throw new DBException(Messages.CANNOT_UNBLOCK_USER, ex);
-        } finally {
-            close(stmt);
-            close(con);
-        }
-    }
-
-    @Override
-    public boolean changeFirstName(String firstName, int id) throws DBException {
-        Connection con = getConnection();
-        PreparedStatement stmt = null;
-        try {
-            stmt = con.prepareStatement(Constants.CHANGE_USER_FIRST_NAME);
-            stmt.setString(1, firstName);
-            stmt.setInt(2, id);
-            int rowsAffected = stmt.executeUpdate();
-            return (rowsAffected > 0);
-
-        } catch (SQLException ex) {
-            throw new DBException(Messages.CANNOT_CHANGE_USER_FIRST_NAME, ex);
-        } finally {
-            close(stmt);
-            close(con);
-        }
-    }
-
-    @Override
-    public boolean changeLastName(String firstName, int id) throws DBException {
-        Connection con = getConnection();
-        PreparedStatement stmt = null;
-        try {
-            stmt = con.prepareStatement(Constants.CHANGE_USER_LAST_NAME);
-            stmt.setString(1, firstName);
-            stmt.setInt(2, id);
-            int rowsAffected = stmt.executeUpdate();
-            return (rowsAffected > 0);
-
-        } catch (SQLException ex) {
-            throw new DBException(Messages.CANNOT_CHANGE_USER_LAST_NAME, ex);
-        } finally {
-            close(stmt);
-            close(con);
-        }
-    }
-
-    @Override
-    public boolean changePassword(String firstName, int id) throws DBException {
-        Connection con = getConnection();
-        PreparedStatement stmt = null;
-        try {
-            stmt = con.prepareStatement(Constants.CHANGE_USER_PASSWORD);
-            stmt.setString(1, firstName);
-            stmt.setInt(2, id);
-            int rowsAffected = stmt.executeUpdate();
-            return (rowsAffected > 0);
-
-        } catch (SQLException ex) {
-            throw new DBException(Messages.CANNOT_CHANGE_USER_PASSWORD, ex);
-        } finally {
-            close(stmt);
-            close(con);
-        }
-    }
-
-    @Override
-    public boolean setAdmin(int id) throws DBException {
-        Connection con = getConnection();
-        PreparedStatement stmt = null;
-        try {
-            stmt = con.prepareStatement(Constants.SET_ADMIN);
-            stmt.setInt(1, id);
-            int rowsAffected = stmt.executeUpdate();
-            return (rowsAffected > 0);
-        } catch (SQLException ex) {
-            throw new DBException(Messages.CANNOT_SET_ADMIN, ex);
-        } finally {
-            close(stmt);
-            close(con);
-        }
-    }
-
-    @Override
-    public boolean deleteAdmin(int id) throws DBException {
-        Connection con = getConnection();
-        PreparedStatement stmt = null;
-        try {
-            stmt = con.prepareStatement(Constants.DELETE_ADMIN);
-            stmt.setInt(1, id);
-            int rowsAffected = stmt.executeUpdate();
-            return (rowsAffected > 0);
-        } catch (SQLException ex) {
-            throw new DBException(Messages.CANNOT_DELETE_ADMIN, ex);
-        } finally {
-            close(stmt);
-            close(con);
-        }
-    }
-
-    @Override
-    public boolean setManager(int id) throws DBException {
-        Connection con = getConnection();
-        PreparedStatement stmt = null;
-        try {
-            stmt = con.prepareStatement(Constants.SET_MANAGER);
-            stmt.setInt(1, id);
-            int rowsAffected = stmt.executeUpdate();
-            return (rowsAffected > 0);
-        } catch (SQLException ex) {
-            throw new DBException(Messages.CANNOT_SET_MANAGER, ex);
-        } finally {
-            close(stmt);
-            close(con);
-        }
-    }
-
-    @Override
-    public boolean deleteManager(int id) throws DBException {
-        Connection con = getConnection();
-        PreparedStatement stmt = null;
-        try {
-            stmt = con.prepareStatement(Constants.DELETE_MANAGER);
-            stmt.setInt(1, id);
-            int rowsAffected = stmt.executeUpdate();
-            return (rowsAffected > 0);
-        } catch (SQLException ex) {
-            throw new DBException(Messages.CANNOT_DELETE_MANAGER, ex);
-        } finally {
-            close(stmt);
-            close(con);
-        }
-    }
-
-    @Override
-    public boolean setSpeaker(int id) throws DBException {
-        Connection con = getConnection();
-        PreparedStatement stmt = null;
-        try {
-            stmt = con.prepareStatement(Constants.SET_SPEAKER);
-            stmt.setInt(1, id);
-            int rowsAffected = stmt.executeUpdate();
-            return (rowsAffected > 0);
-        } catch (SQLException ex) {
-            throw new DBException(Messages.CANNOT_SET_MANAGER, ex);
-        } finally {
-            close(stmt);
-            close(con);
-        }
-    }
-
-    @Override
-    public boolean deleteSpeaker(int id) throws DBException {
-        Connection con = getConnection();
-        PreparedStatement stmt = null;
-        try {
-            stmt = con.prepareStatement(Constants.DELETE_SPEAKER);
-            stmt.setInt(1, id);
-            int rowsAffected = stmt.executeUpdate();
-            return (rowsAffected > 0);
-        } catch (SQLException ex) {
-            throw new DBException(Messages.CANNOT_DELETE_SPEAKER, ex);
-        } finally {
-            close(stmt);
-            close(con);
-        }
-    }
-
     private static Connection getConnection() throws DBException {
         Connection con;
         try {

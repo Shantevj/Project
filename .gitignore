@@ -40,7 +40,7 @@ build/
 
 ### Other ###
 sql/conferencedb.mwb
-sql/conference_diagram.png
+*.png
 target/
 *~
 src/main/webapp/index.html

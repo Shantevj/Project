@@ -10,20 +10,21 @@ import javax.servlet.http.HttpServletResponse;
 public class BlockUserCommand extends Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        String from = req.getParameter("from");
-        int id = Integer.parseInt(req.getParameter("userId"));
-        DAOFactory daoFactory;
-        try {
-            daoFactory = DAOFactory.getInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        UserDAO userDAO = daoFactory.getUserDAO();
-        try {
-            boolean wasUserBlocked = userDAO.blockUser(id);
-        } catch (DBException e) {
-            throw new RuntimeException(e);
-        }
-        return "main?command=select_users&type=" + from;
+//        String from = req.getParameter("from");
+//        int id = Integer.parseInt(req.getParameter("userId"));
+//        DAOFactory daoFactory;
+//        try {
+//            daoFactory = DAOFactory.getInstance();
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//        UserDAO userDAO = daoFactory.getUserDAO();
+//        try {
+//            boolean wasUserBlocked = userDAO.blockUser(id);
+//        } catch (DBException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return "main?command=select_users&type="+ from;
+        return null;
     }
 }

@@ -5,11 +5,11 @@
             <div class="btn btn-primary dropdown">
                 Manage users
                 <div class="dropdown-content">
-                    <a href="main?command=select_users&type=admin">Admins</a>
-                    <a href="main?command=select_users&type=manager">Managers</a>
-                    <a href="main?command=select_users&type=speaker">Speakers</a>
-                    <a href="main?command=select_users&type=regular_user">Regular users</a>
-                    <a href="main?command=select_users&type=banned_user">Banned users</a>
+                    <a href="main?command=get_users&type=admin">Admins</a>
+                    <a href="main?command=get_users&type=manager">Managers</a>
+                    <a href="main?command=get_users&type=speaker">Speakers</a>
+                    <a href="main?command=get_users&type=regular_user">Regular users</a>
+                    <a href="main?command=get_users&type=banned_user">Banned users</a>
                 </div>
             </div>
             <div class="btn btn-primary dropdown">

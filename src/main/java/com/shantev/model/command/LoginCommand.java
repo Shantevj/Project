@@ -4,6 +4,7 @@ import com.shantev.exception.DBException;
 import com.shantev.model.db.dao.DAOFactory;
 import com.shantev.model.db.dao.UserDAO;
 import com.shantev.model.db.entity.User;
+import com.shantev.model.validator.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,11 @@ public class LoginCommand extends Command {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
+        boolean isLoginDataValid = Validator.validateLoginData(login, password);
+        if(!isLoginDataValid) {
+            req.getSession().setAttribute("is_login_data_valid", "not_valid");
+            return "log_in.jsp";
+        }
         DAOFactory daoFactory;
         try {
             daoFactory = DAOFactory.getInstance();

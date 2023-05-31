@@ -4,19 +4,28 @@ import com.shantev.exception.DBException;
 import com.shantev.model.db.dao.DAOFactory;
 import com.shantev.model.db.dao.UserDAO;
 import com.shantev.model.db.entity.User;
+import com.shantev.model.validator.Validator;
 import com.shantev.useful.Role;
 
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
-public class RegisterCommand extends Command{
+public class RegisterCommand extends Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         String firstName = req.getParameter("firstName");
         String lastName = req.getParameter("lastName");
-        String email = req.getParameter("email");
-        String password = req.getParameter("password1");
+        String login = req.getParameter("email");
+        String password1 = req.getParameter("password1");
+        String password2 = req.getParameter("password2");
+        boolean isSignupDataValid = Validator.validateSignupData(firstName, lastName, login, password1, password2);
+        if (!isSignupDataValid) {
+            req.getSession().setAttribute("is_signup_data_valid", "not_valid");
+            return "sign_up.jsp";
+        }
+        User user = new User(firstName, lastName, login, password1, Role.USER);
         DAOFactory daoFactory;
         try {
             daoFactory = DAOFactory.getInstance();
@@ -25,7 +34,9 @@ public class RegisterCommand extends Command{
         }
         UserDAO userDAO = daoFactory.getUserDAO();
         try {
-            User user = userDAO.insertUser(firstName, lastName, email, password);
+            userDAO.addNewUser(user);
+            List<User> users = (List<User>)req.getSession().getServletContext().getAttribute("userList");
+            users.add(user);
             req.getSession().setAttribute("user", user);
         } catch (DBException e) {
             throw new RuntimeException(e);

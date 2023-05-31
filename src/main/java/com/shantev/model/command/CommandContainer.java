@@ -11,7 +11,7 @@ public class CommandContainer {
         commandMap.put("sign_up", new RegisterCommand());
         commandMap.put("log_out", new LogoutCommand());
         commandMap.put("register_for_event", new RegisterForEventCommand());
-        commandMap.put("select_users", new ListUsersCommand());
+        commandMap.put("get_users", new ListUsersCommand());
         commandMap.put("incorrect_command", new IncorrectCommand());
         commandMap.put("block_user", new BlockUserCommand());
         commandMap.put("unblock_user", new UnblockUserCommand());

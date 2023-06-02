@@ -34,6 +34,7 @@ public class LoginCommand extends Command {
                 req.getSession().setAttribute("login_failed", "failed");
                 return "log_in.jsp";
             }
+            req.getSession().removeAttribute("is_login_data_valid");
             req.getSession().removeAttribute("login_failed");
             req.getSession().setAttribute("user", user);
         } catch (DBException e) {

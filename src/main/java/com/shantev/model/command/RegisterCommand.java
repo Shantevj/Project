@@ -39,6 +39,7 @@ public class RegisterCommand extends Command {
         } catch (DBException e) {
             throw new RuntimeException(e);
         }
+        req.getSession().removeAttribute("is_signup_data_valid");
         return "index.jsp";
     }
 }

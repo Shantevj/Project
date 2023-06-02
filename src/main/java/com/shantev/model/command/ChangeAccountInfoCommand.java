@@ -38,6 +38,7 @@ public class ChangeAccountInfoCommand extends Command {
         } catch (DBException e) {
             throw new RuntimeException(e);
         }
+        req.getSession().removeAttribute("is_changed_data_valid");
         return "main?command=my_account&type=view";
     }
 }

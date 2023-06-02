@@ -19,6 +19,9 @@
                         <div id="signup-box" class="col-md-12">
                             <form id="signup-form" class="form" action="main?command=sign_up" method="POST">
                                 <h3 class="text-center text-info">Sign up</h3>
+                                <c:if test="${is_signup_data_valid eq 'not_valid'}">
+                                    <div id="failed">Incorrect login data</div>
+                                </c:if>
                                 <div class="form-group">
                                     <label for="firstName" class="text-info">First Name</label>
                                     <input type="text" name="firstName" id="firstName" class="form-control">

@@ -12,6 +12,9 @@
 
     <body>
       <%@include file="../shared/choose_header.jspf" %>
+      <c:if test="${is_changed_data_valid eq 'not_valid'}">
+        <div id="failed">Incorrect login data</div>
+      </c:if>
         <div class="card" style="width: 30%;">
           <form action="main?command=change_my_info" method="POST">
           <ul class="list-group list-group-flush">

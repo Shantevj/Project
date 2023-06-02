@@ -20,7 +20,7 @@
                         <div id="login-box" class="col-md-12">
                             <form id="login-form" class="form" action="main?command=log_in" method="POST">
                                 <h3 class="text-center text-info">Login</h3>
-                                <c:if test="${login_failed eq 'failed'}">
+                                <c:if test="${is_login_data_valid eq 'not_valid' || login_failed eq 'failed'}">
                                     <div id="failed">Incorrect login data</div>
                                 </c:if>
                                 <div class="form-group">

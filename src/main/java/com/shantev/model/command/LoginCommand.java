@@ -4,6 +4,7 @@ import com.shantev.exception.DBException;
 import com.shantev.model.db.dao.DAOFactory;
 import com.shantev.model.db.dao.UserDAO;
 import com.shantev.model.db.entity.User;
+import com.shantev.model.validator.HashEncryptor;
 import com.shantev.model.validator.Validator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,8 @@ public class LoginCommand extends Command {
         }
         UserDAO userDAO = daoFactory.getUserDAO();
         try {
-            User user = userDAO.getUserByLoginAndPassword(login, password);
+            String hashedPassword = HashEncryptor.getPasswordHash(password, HashEncryptor.DEFAULT_SALT);
+            User user = userDAO.getUserByLoginAndPassword(login, hashedPassword);
             if(user == null) {
                 req.getSession().setAttribute("login_failed", "failed");
                 return "log_in.jsp";

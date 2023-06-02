@@ -4,13 +4,12 @@ import com.shantev.exception.DBException;
 import com.shantev.model.db.dao.DAOFactory;
 import com.shantev.model.db.dao.UserDAO;
 import com.shantev.model.db.entity.User;
+import com.shantev.model.validator.HashEncryptor;
 import com.shantev.model.validator.Validator;
 import com.shantev.useful.Role;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 public class RegisterCommand extends Command {
     @Override
@@ -25,7 +24,8 @@ public class RegisterCommand extends Command {
             req.getSession().setAttribute("is_signup_data_valid", "not_valid");
             return "sign_up.jsp";
         }
-        User user = new User(firstName, lastName, login, password1, Role.USER);
+        String hashedPassword = HashEncryptor.getPasswordHash(password1, HashEncryptor.DEFAULT_SALT);
+        User user = new User(firstName, lastName, login, hashedPassword, Role.USER);
         DAOFactory daoFactory;
         try {
             daoFactory = DAOFactory.getInstance();
@@ -35,8 +35,6 @@ public class RegisterCommand extends Command {
         UserDAO userDAO = daoFactory.getUserDAO();
         try {
             userDAO.addNewUser(user);
-            List<User> users = (List<User>)req.getSession().getServletContext().getAttribute("userList");
-            users.add(user);
             req.getSession().setAttribute("user", user);
         } catch (DBException e) {
             throw new RuntimeException(e);

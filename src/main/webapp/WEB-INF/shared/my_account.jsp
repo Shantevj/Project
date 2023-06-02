@@ -17,7 +17,7 @@
             <li class="list-group-item">First name: ${user.firstName}</li>
             <li class="list-group-item">Last name: ${user.lastName}</li>
             <li class="list-group-item">Email : ${user.login}</li>
-            <li class="list-group-item">Password: ${user.password}</li>
+            <li class="list-group-item">Password (hash): ${user.password}</li>
             <li class="list-group-item">Logged as: ${user.role}</li>
           </ul>
           <div class="card-body text-right">

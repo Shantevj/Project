@@ -20,29 +20,38 @@ public class ListUsersCommand extends Command {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        Role userRole = ((User) req.getSession().getAttribute("user")).getRole();
         UserDAO userDAO = daoFactory.getUserDAO();
+        List<User> userList;
         try {
-            List<User> users = userDAO.getAllUsers();
-            req.getSession().getServletContext().setAttribute("userList", users);
+            userList = userDAO.getAllUsers();
         } catch (DBException e) {
             throw new RuntimeException(e);
         }
-        Role userRole = ((User) req.getSession().getAttribute("user")).getRole();
-        List<User> userList = (List<User>) req.getSession().getServletContext().getAttribute("userList");
         List<User> filteredUserList = null;
         String userType = req.getParameter("type");
         if (userRole == Role.ADMIN) {
-            switch(userType) {
-                case "admin": filteredUserList = filterUsers(userList, Role.ADMIN); break;
-                case "manager": filteredUserList = filterUsers(userList, Role.MANAGER); break;
-                case "speaker": filteredUserList = filterUsers(userList, Role.SPEAKER); break;
-                case "regular_user": filteredUserList = filterUsers(userList, Role.USER); break;
-                case "banned_user": filteredUserList = filterUsers(userList, Role.BANNED); break;
+            switch (userType) {
+                case "admin":
+                    filteredUserList = filterUsers(userList, Role.ADMIN);
+                    break;
+                case "manager":
+                    filteredUserList = filterUsers(userList, Role.MANAGER);
+                    break;
+                case "speaker":
+                    filteredUserList = filterUsers(userList, Role.SPEAKER);
+                    break;
+                case "regular_user":
+                    filteredUserList = filterUsers(userList, Role.USER);
+                    break;
+                case "banned_user":
+                    filteredUserList = filterUsers(userList, Role.BANNED);
+                    break;
             }
             req.setAttribute("filteredUserList", filteredUserList);
             return "WEB-INF/admin/admin_user_list.jsp";
         }
-        if(userRole == Role.MANAGER) return "WEB-INF/manager/manager_user_list.jsp";
+        if (userRole == Role.MANAGER) return "WEB-INF/manager/manager_user_list.jsp";
         return "error_page.jsp";
     }
 

@@ -27,6 +27,6 @@
                 </div>                
             </div>
             <a href="main?command=my_account&type=view"><div class="btn btn-success">My account</div></a>
-            <a href="main?command=log_out"><div class="btn btn-danger">Log out</div></a>
+            <form action="main?command=log_out" method="POST"><input type="submit" class="btn btn-danger" value="Log out" /></form>
         </div>
     </div>

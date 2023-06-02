@@ -35,6 +35,9 @@ body {
     position: relative;
     display: inline-block;
 } */
+form {
+    display: inline;
+}
 
 .dropdown-content {
     display: none;

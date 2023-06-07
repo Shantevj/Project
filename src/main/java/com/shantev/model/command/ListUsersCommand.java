@@ -8,8 +8,9 @@ import com.shantev.useful.Role;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ListUsersCommand extends Command {
     @Override
@@ -56,12 +57,10 @@ public class ListUsersCommand extends Command {
     }
 
     private List<User> filterUsers(List<User> userList, Role role) {
-        List<User> filteredUserList = new ArrayList<>();
-        for (User user : userList) {
-            if (user.getRole() == role) {
-                filteredUserList.add(user);
-            }
-        }
-        return filteredUserList;
+        Stream<User> stream = userList.stream();
+        Stream<User> filteredStream = stream.filter(
+                user -> user.getRole() == role
+        );
+        return filteredStream.collect(Collectors.toList());
     }
 }

@@ -1,4 +1,6 @@
-package com.shantev.model.command;
+package com.shantev.model.command.utility;
+
+import com.shantev.model.command.*;
 
 import java.util.HashMap;
 import java.util.Map;

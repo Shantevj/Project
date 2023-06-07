@@ -1,7 +1,7 @@
 package com.shantev.model.command;
 
+import com.shantev.model.command.utility.Command;
 import com.shantev.exception.DBException;
-import com.shantev.model.db.dao.DAOFactory;
 import com.shantev.model.db.dao.UserDAO;
 import com.shantev.model.db.entity.User;
 import com.shantev.useful.Role;
@@ -17,14 +17,6 @@ public class BlockUserCommand extends Command {
 
         //get id of user to block
         int id = Integer.parseInt(req.getParameter("userId"));
-
-        //attempt to get DAOFactory instance
-        DAOFactory daoFactory;
-        try {
-            daoFactory = DAOFactory.getInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
 
         //attempt to get user data from database, and change it
         UserDAO userDAO = daoFactory.getUserDAO();

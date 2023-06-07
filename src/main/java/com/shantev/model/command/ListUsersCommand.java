@@ -1,7 +1,7 @@
 package com.shantev.model.command;
 
+import com.shantev.model.command.utility.Command;
 import com.shantev.exception.DBException;
-import com.shantev.model.db.dao.DAOFactory;
 import com.shantev.model.db.dao.UserDAO;
 import com.shantev.model.db.entity.User;
 import com.shantev.useful.Role;
@@ -16,14 +16,6 @@ import java.util.stream.Stream;
 public class ListUsersCommand extends Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DBException {
-        //attempt to get DAOFactory instance
-        DAOFactory daoFactory;
-        try {
-            daoFactory = DAOFactory.getInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
         //find out who can access the user list
         Role userRole = ((User) req.getSession().getAttribute("user")).getRole();
 

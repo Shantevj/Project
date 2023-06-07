@@ -1,5 +1,6 @@
 package com.shantev.model.command;
 
+import com.shantev.model.command.utility.Command;
 import com.shantev.exception.DBException;
 import com.shantev.model.db.dao.DAOFactory;
 import com.shantev.model.db.dao.UserDAO;

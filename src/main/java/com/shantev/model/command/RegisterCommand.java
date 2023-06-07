@@ -1,7 +1,7 @@
 package com.shantev.model.command;
 
+import com.shantev.model.command.utility.Command;
 import com.shantev.exception.DBException;
-import com.shantev.model.db.dao.DAOFactory;
 import com.shantev.model.db.dao.UserDAO;
 import com.shantev.model.db.entity.User;
 import com.shantev.model.validator.HashEncryptor;
@@ -28,14 +28,6 @@ public class RegisterCommand extends Command {
         if (!isSignupDataValid) {
             req.getSession().setAttribute("is_signup_data_valid", "not_valid");
             return "sign_up.jsp";
-        }
-
-        //attempt to get DAOFactory instance
-        DAOFactory daoFactory;
-        try {
-            daoFactory = DAOFactory.getInstance();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
 
         //attempt to get UserDAO instance, hash password and create new user object

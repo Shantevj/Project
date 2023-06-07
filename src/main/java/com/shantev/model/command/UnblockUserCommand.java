@@ -1,28 +1,27 @@
 package com.shantev.model.command;
 
 import com.shantev.exception.DBException;
-import com.shantev.model.db.dao.DAOFactory;
 import com.shantev.model.db.dao.UserDAO;
+import com.shantev.model.db.entity.User;
+import com.shantev.useful.Role;
+import com.shantev.model.command.utility.Command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class UnblockUserCommand extends Command {
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
-//        int id = Integer.parseInt(req.getParameter("userId"));
-//        DAOFactory daoFactory;
-//        try {
-//            daoFactory = DAOFactory.getInstance();
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//        UserDAO userDAO = daoFactory.getUserDAO();
-//        try {
-//            boolean wasUserUnblocked = userDAO.unblockUser(id);
-//        } catch (DBException e) {
-//            throw new RuntimeException(e);
-//        }
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DBException {
+        //get id of user to block
+        int id = Integer.parseInt(req.getParameter("userId"));
+
+        //attempt to get user data from database, and change it
+        UserDAO userDAO = daoFactory.getUserDAO();
+        User user = userDAO.getUserById(id);
+        user.setRole(Role.BANNED);
+        userDAO.updateUser(user);
+
+        //return page from which request has come
         return "main?command=select_users&type=banned_user";
     }
 }

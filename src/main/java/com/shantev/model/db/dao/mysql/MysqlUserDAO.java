@@ -28,7 +28,7 @@ public class MysqlUserDAO implements UserDAO {
                 user.setId(rs.getInt("id"));
                 user.setFirstName(rs.getString("first_name"));
                 user.setLastName(rs.getString("last_name"));
-                user.setLogin(rs.getString(rs.getString("login")));
+                user.setLogin(rs.getString("login"));
                 user.setPassword(rs.getString("password"));
                 user.setRole(Role.getRole(rs.getInt("role_id")));
             }

@@ -18,10 +18,10 @@ public class UnblockUserCommand extends Command {
         //attempt to get user data from database, and change it
         UserDAO userDAO = daoFactory.getUserDAO();
         User user = userDAO.getUserById(id);
-        user.setRole(Role.BANNED);
+        user.setRole(Role.USER);
         userDAO.updateUser(user);
 
         //return page from which request has come
-        return "main?command=select_users&type=banned_user";
+        return "main?command=get_users&type=banned_user";
     }
 }

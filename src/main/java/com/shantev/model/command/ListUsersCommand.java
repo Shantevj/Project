@@ -8,51 +8,41 @@ import com.shantev.useful.Role;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ListUsersCommand extends Command {
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DBException {
+        //attempt to get DAOFactory instance
         DAOFactory daoFactory;
         try {
             daoFactory = DAOFactory.getInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+        //find out who can access the user list
         Role userRole = ((User) req.getSession().getAttribute("user")).getRole();
+
+        //attempt to get UserDAO instance, and obtain list of all users
         UserDAO userDAO = daoFactory.getUserDAO();
-        List<User> userList;
-        try {
-            userList = userDAO.getAllUsers();
-        } catch (DBException e) {
-            throw new RuntimeException(e);
-        }
-        List<User> filteredUserList = null;
+        List<User> fullUserList;
+        fullUserList = userDAO.getAllUsers();
+
+        //find out what type of users was requested
         String userType = req.getParameter("type");
+
+        //get only requested user
+        List<User> filteredUserList = getFilteredUserList(userType, fullUserList);
+        req.setAttribute("filteredUserList", filteredUserList);
+
+        //base on user type return appropriate page
         if (userRole == Role.ADMIN) {
-            switch (userType) {
-                case "admin":
-                    filteredUserList = filterUsers(userList, Role.ADMIN);
-                    break;
-                case "manager":
-                    filteredUserList = filterUsers(userList, Role.MANAGER);
-                    break;
-                case "speaker":
-                    filteredUserList = filterUsers(userList, Role.SPEAKER);
-                    break;
-                case "regular_user":
-                    filteredUserList = filterUsers(userList, Role.USER);
-                    break;
-                case "banned_user":
-                    filteredUserList = filterUsers(userList, Role.BANNED);
-                    break;
-            }
-            req.setAttribute("filteredUserList", filteredUserList);
             return "WEB-INF/admin/admin_user_list.jsp";
-        }
-        if (userRole == Role.MANAGER) return "WEB-INF/manager/manager_user_list.jsp";
+        } else if (userRole == Role.MANAGER) return "WEB-INF/manager/manager_user_list.jsp";
         return "error_page.jsp";
     }
 
@@ -62,5 +52,27 @@ public class ListUsersCommand extends Command {
                 user -> user.getRole() == role
         );
         return filteredStream.collect(Collectors.toList());
+    }
+
+    private List<User> getFilteredUserList(String userType, List<User> fullUserList) {
+        List<User> filteredUserList = new ArrayList<>();
+        switch (userType) {
+            case "admin":
+                filteredUserList = filterUsers(fullUserList, Role.ADMIN);
+                break;
+            case "manager":
+                filteredUserList = filterUsers(fullUserList, Role.MANAGER);
+                break;
+            case "speaker":
+                filteredUserList = filterUsers(fullUserList, Role.SPEAKER);
+                break;
+            case "regular_user":
+                filteredUserList = filterUsers(fullUserList, Role.USER);
+                break;
+            case "banned_user":
+                filteredUserList = filterUsers(fullUserList, Role.BANNED);
+                break;
+        }
+        return filteredUserList;
     }
 }

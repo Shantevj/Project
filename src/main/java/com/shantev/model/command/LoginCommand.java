@@ -12,34 +12,45 @@ import javax.servlet.http.HttpServletResponse;
 
 public class LoginCommand extends Command {
     @Override
-    public String execute(HttpServletRequest req, HttpServletResponse resp) {
+    public String execute(HttpServletRequest req, HttpServletResponse resp) throws DBException {
+        //get login data from request
         String login = req.getParameter("login");
         String password = req.getParameter("password");
+
+        //check if this data is valid
         boolean isLoginDataValid = Validator.validateLoginData(login, password);
-        if(!isLoginDataValid) {
+
+        //if login data is not valid return login page with error field
+        if (!isLoginDataValid) {
             req.getSession().setAttribute("is_login_data_valid", "not_valid");
             return "log_in.jsp";
         }
+
+        //attempt to get DAOFactory instance
         DAOFactory daoFactory;
         try {
             daoFactory = DAOFactory.getInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+        //attempt to get UserDAO instance, hash password and try to find same user in database
         UserDAO userDAO = daoFactory.getUserDAO();
-        try {
-            String hashedPassword = HashEncryptor.getPasswordHash(password, HashEncryptor.DEFAULT_SALT);
-            User user = userDAO.getUserByLoginAndPassword(login, hashedPassword);
-            if(user == null) {
-                req.getSession().setAttribute("login_failed", "failed");
-                return "log_in.jsp";
-            }
-            req.getSession().removeAttribute("is_login_data_valid");
-            req.getSession().removeAttribute("login_failed");
-            req.getSession().setAttribute("user", user);
-        } catch (DBException e) {
-            throw new RuntimeException(e);
+        String hashedPassword = HashEncryptor.getPasswordHash(password, HashEncryptor.DEFAULT_SALT);
+        User user = userDAO.getUserByLoginAndPassword(login, hashedPassword);
+
+        //if login data is not correct return login page with error field
+        if (user == null) {
+            req.getSession().setAttribute("login_failed", "failed");
+            return "log_in.jsp";
         }
+
+        //remove unnecessary attributes and set user obtained from database as attribute
+        req.getSession().removeAttribute("is_login_data_valid");
+        req.getSession().removeAttribute("login_failed");
+        req.getSession().setAttribute("user", user);
+
+        //if user has logged in successfully, return index.jsp (main page)
         return "index.jsp";
     }
 }

@@ -8,6 +8,7 @@ import com.shantev.useful.Role;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 public class SetAdminCommand extends Command {
     @Override
@@ -17,9 +18,12 @@ public class SetAdminCommand extends Command {
 
         //attempt to get user data from database, and change it
         UserDAO userDAO = daoFactory.getUserDAO();
-        User user = userDAO.getUserById(id);
-        user.setRole(Role.ADMIN);
-        userDAO.updateUser(user);
+        Optional<User> userMaybe = userDAO.getUserById(id);
+        if(userMaybe.isPresent()) {
+            User user = userMaybe.get();
+            user.setRole(Role.ADMIN);
+            userDAO.updateUser(user);
+        }
 
         //return page from which request has come
         return "main?command=get_users&type=regular_user";

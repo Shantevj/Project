@@ -1,22 +1,21 @@
 package com.shantev.model.db.dao.mysql;
 
+import com.shantev.model.db.dao.Utility;
 import com.shantev.model.db.dao.UserDAO;
 import com.shantev.model.db.entity.User;
 import com.shantev.exception.DBException;
 import com.shantev.exception.Messages;
 import com.shantev.useful.Role;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class MysqlUserDAO implements UserDAO {
-    public User getUserById(int id) throws DBException {
+    public Optional<User> getUserById(int id) throws DBException {
         User user = null;
-        Connection con = getConnection();
+        Connection con = Utility.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
@@ -32,20 +31,20 @@ public class MysqlUserDAO implements UserDAO {
                 user.setPassword(rs.getString("password"));
                 user.setRole(Role.getRole(rs.getInt("role_id")));
             }
-            return user;
+            return Optional.ofNullable(user);
         } catch (SQLException ex) {
             throw new DBException(Messages.CANNOT_OBTAIN_USER, ex);
         } finally {
-            close(rs);
-            close(stmt);
-            close(con);
+            Utility.close(rs);
+            Utility.close(stmt);
+            Utility.close(con);
         }
     }
 
     @Override
     public List<User> getAllUsers() throws DBException {
         List<User> userList = new ArrayList<>();
-        Connection con = getConnection();
+        Connection con = Utility.getConnection();
         Statement stmt = null;
         ResultSet rs = null;
         try {
@@ -66,15 +65,15 @@ public class MysqlUserDAO implements UserDAO {
             //Add logging
             throw new DBException(Messages.CANNOT_OBTAIN_ALL_USERS, ex);
         } finally {
-            close(rs);
-            close(stmt);
-            close(con);
+            Utility.close(rs);
+            Utility.close(stmt);
+            Utility.close(con);
         }
     }
 
     @Override
     public void addNewUser(User user) throws DBException {
-        Connection con = getConnection();
+        Connection con = Utility.getConnection();
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(Constants.ADD_NEW_USER, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -96,14 +95,14 @@ public class MysqlUserDAO implements UserDAO {
         } catch(SQLException ex) {
             throw new DBException(Messages.CANNOT_ADD_USER, ex);
         } finally {
-            close(stmt);
-            close(con);
+            Utility.close(stmt);
+            Utility.close(con);
         }
 
     }
     @Override
     public void updateUser(User user) throws DBException {
-        Connection con = getConnection();
+        Connection con = Utility.getConnection();
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(Constants.UPDATE_USER);
@@ -118,15 +117,15 @@ public class MysqlUserDAO implements UserDAO {
         } catch (SQLException ex) {
             throw new DBException(Messages.CANNOT_ADD_USER, ex);
         } finally {
-            close(stmt);
-            close(con);
+            Utility.close(stmt);
+            Utility.close(con);
         }
     }
 
     @Override
     public User getUserByLoginAndPassword(String login, String password) throws DBException {
         User user = null;
-        Connection con = getConnection();
+        Connection con = Utility.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
@@ -149,15 +148,15 @@ public class MysqlUserDAO implements UserDAO {
             throw new DBException(Messages.CANNOT_OBTAIN_ALL_USERS, ex);
 
         } finally {
-            close(rs);
-            close(stmt);
-            close(con);
+            Utility.close(rs);
+            Utility.close(stmt);
+            Utility.close(con);
         }
     }
 
     @Override
     public void deleteUserById(int id) throws DBException {
-        Connection con = getConnection();
+        Connection con = Utility.getConnection();
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(Constants.DELETE_USER);
@@ -166,30 +165,9 @@ public class MysqlUserDAO implements UserDAO {
         } catch (SQLException ex) {
             throw new DBException(Messages.CANNOT_DELETE_USER, ex);
         } finally {
-            close(stmt);
-            close(con);
+            Utility.close(stmt);
+            Utility.close(con);
         }
     }
-    private static Connection getConnection() throws DBException {
-        Connection con;
-        try {
-            Context initContext = new InitialContext();
-            Context envContext = (Context) initContext.lookup("java:/comp/env");
-            DataSource ds = (DataSource) envContext.lookup("jdbc/ConferenceDB");
-            con = ds.getConnection();
-        } catch (Exception e) {
-            throw new DBException(Messages.CANNOT_OBTAIN_CONNECTION, e);
-        }
-        return con;
-    }
-
-    private static void close(AutoCloseable resource) {
-        if (resource != null) {
-            try {
-                resource.close();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
+    
 }

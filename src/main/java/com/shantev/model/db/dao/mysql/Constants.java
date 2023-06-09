@@ -1,6 +1,7 @@
 package com.shantev.model.db.dao.mysql;
 
 public class Constants {
+    /****************************USER QUERIES********************************/
     public static String GET_USER_BY_ID = "SELECT * FROM Users WHERE id=?";
     public static String GET_ALL_USERS = "SELECT * FROM Users";
     public static String ADD_NEW_USER = "INSERT INTO Users VALUES(DEFAULT, ?, ?, ?, ?, ?)";
@@ -10,4 +11,16 @@ public class Constants {
     public static String DELETE_USER = "DELETE FROM Users WHERE id=?";
     public static String GET_USER_BY_LOGIN_AND_PASSWORD = "SElECT * FROM Users " +
             "WHERE login=? AND password=?";
+
+    /****************************EVEN QUERIES********************************/
+//    public static String GET_EVENT_BY_ID = "SELECT * FROM Events WHERE id=?";
+    public static String GET_EVENT_BY_ID = "SELECT e.id AS id" +
+            ", e.theme AS theme" +
+            ", c.name AS category" +
+            ", ed.date AS date" +
+            ", ed.address AS address" +
+            ", ed.description AS description" +
+            ", es.description AS status" +
+            " FROM Events AS e, Categories AS c, Event_statuses AS es, Event_details AS ed " +
+            "WHERE e.id=? AND ed.event_id=e.id AND c.id=e.category_id AND es.id=e.event_status_id";
 }

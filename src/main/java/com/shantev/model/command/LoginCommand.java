@@ -4,8 +4,8 @@ import com.shantev.model.command.utility.Command;
 import com.shantev.exception.DBException;
 import com.shantev.model.db.dao.UserDAO;
 import com.shantev.model.db.entity.User;
-import com.shantev.model.validator.HashEncryptor;
-import com.shantev.model.validator.Validator;
+import com.shantev.model.utility.HashEncryptor;
+import com.shantev.model.utility.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

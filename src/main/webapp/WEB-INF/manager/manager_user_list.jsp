@@ -1,11 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
-      <sql:query var="rs" dataSource="jdbc/ConferenceDB">
-        SELECT u.id, u.first_name, u.last_name, u.login
-        FROM Users AS u, Roles AS r
-        WHERE u.role_id=r.id AND r.name='${param.type}'
-      </sql:query>
       <html>
       <head>
         <link rel="stylesheet" href="styles/header_style.css">
@@ -23,15 +18,15 @@
             </tr>
           </thead>
           <tbody>
-            <c:forEach var="row" items="${rs.rowsByIndex}">
+            <c:forEach var="item" items="${filteredUserList}">
               <tr>
-                <td>${row[1]}</td>
-                <td>${row[2]}</td>
-                <td>${row[3]}</td>
+                <td>${item.firstName}</td>
+                <td>${item.lastName}</td>
+                <td>${item.login}</td>
                 <c:if test="${param.type eq 'speaker'}">
                  <td>
                   <form action="main?command=delete_speaker" method="POST">
-                    <input type="hidden" name="userId" value="${row[0]}" />
+                    <input type="hidden" name="userId" value="${item.id}" />
                     <input type="submit" class="btn btn-danger" value="Delete speaker" />
                   </form>
                  </td>
@@ -39,7 +34,7 @@
                 <c:if test="${param.type eq 'regular_user'}">
                  <td>
                   <form action="main?command=set_speaker" method="POST">
-                    <input type="hidden" name="userId" value="${row[0]}" />
+                    <input type="hidden" name="userId" value="${item.id}" />
                     <input type="submit" class="btn btn-warning" value="Add speaker" />
                   </form>
                  </td>

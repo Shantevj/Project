@@ -44,4 +44,5 @@ sql/conferencedb.mwb
 target/
 *~
 src/main/webapp/index.html
-*ToDo.txt*
+Test.java
+*.txt*

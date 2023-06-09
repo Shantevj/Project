@@ -3,10 +3,10 @@
         <div class="header-right">
             <a href="index.jsp"><div class="btn btn-info">Main page</div></a>
             <div class="btn btn-primary dropdown">
-                Add/delete speaker
+                Manage speakers
                 <div class="dropdown-content">
-                    <a href="main?command=select_users&type=speaker">Speakers</a>
-                    <a href="main?command=select_users&type=regular_user">Regular users</a>
+                    <a href="main?command=get_users&type=speaker">Delete speakers</a>
+                    <a href="main?command=get_users&type=regular_user">Add speakers</a>
                 </div>
             </div>
             <div class="btn btn-primary"><a href="#home">Requests</a></div>

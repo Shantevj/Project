@@ -156,12 +156,12 @@ public class MysqlUserDAO implements UserDAO {
     }
 
     @Override
-    public void deleteUser(User user) throws DBException {
+    public void deleteUserById(int id) throws DBException {
         Connection con = getConnection();
         PreparedStatement stmt = null;
         try {
             stmt = con.prepareStatement(Constants.DELETE_USER);
-            stmt.setInt(1, user.getId());
+            stmt.setInt(1, id);
             int rowAffected = stmt.executeUpdate();
         } catch (SQLException ex) {
             throw new DBException(Messages.CANNOT_DELETE_USER, ex);

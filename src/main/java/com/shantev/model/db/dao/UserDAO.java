@@ -10,6 +10,6 @@ public interface UserDAO {
     List<User> getAllUsers() throws DBException;
     void addNewUser(User user) throws DBException;
     void updateUser(User user) throws DBException;
-    void deleteUser(User user) throws DBException;
+    void deleteUserById(int id) throws DBException;
     public User getUserByLoginAndPassword(String login, String password) throws DBException;
 }

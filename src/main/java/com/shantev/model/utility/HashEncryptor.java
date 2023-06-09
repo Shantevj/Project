@@ -1,4 +1,4 @@
-package com.shantev.model.validator;
+package com.shantev.model.utility;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;

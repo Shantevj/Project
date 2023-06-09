@@ -1,4 +1,4 @@
-package com.shantev.model.validator;
+package com.shantev.model.utility;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

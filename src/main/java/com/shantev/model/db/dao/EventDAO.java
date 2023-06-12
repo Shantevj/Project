@@ -11,9 +11,9 @@ import java.util.Optional;
 public interface EventDAO {
     Optional<Event> getEventById(int id) throws DBException;
     List<Event> getEventsByCategory(Category category) throws DBException;
-    List<String> getAllEvents() throws DBException;
+    List<Event> getAllEvents() throws DBException;
     void addNewEvent(Event event) throws DBException;
-    boolean updateEvent(Event event) throws DBException;
-    void addNewReportToEvent(int id, Report report);
-    boolean deleteEventById(int id) throws DBException;
+    void updateEvent(Event event) throws DBException;
+    void addNewReportToEvent(int id, Report report) throws DBException;
+    void deleteEventById(int id) throws DBException;
 }

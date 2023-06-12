@@ -15,13 +15,16 @@
             <%@include file="manager_header.jspf" %>
                 <div class="card" style="width: 60%;">
                     <form action="main?command=add_event" method="POST">
+                        <c:if test="${is_event_info_valid eq 'not_valid'}">
+                            <div id="failed">Incorrect event information</div>
+                        </c:if>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><label for="category">Category</label> <select name="category"
                                     id="categories">
                                     <option>Science</option>
                                     <option>IT</option>
                                     <option>Tech</option>
-                                    <option>Bussines</option>
+                                    <option>Business</option>
                                     <option>Enviro</option>
                                     <option>Health</option>
                                     <option>Society</option>

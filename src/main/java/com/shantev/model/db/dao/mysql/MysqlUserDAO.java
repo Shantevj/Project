@@ -115,7 +115,7 @@ public class MysqlUserDAO implements UserDAO {
             int rowsAffected = stmt.executeUpdate();
 
         } catch (SQLException ex) {
-            throw new DBException(Messages.CANNOT_ADD_USER, ex);
+            throw new DBException(Messages.CANNOT_UPDATE_USER, ex);
         } finally {
             Utility.close(stmt);
             Utility.close(con);

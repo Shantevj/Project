@@ -29,7 +29,7 @@ public class ChangeAccountInfoCommand extends Command {
         //if data is not valid return previous page with warning field
         if (firstName.isBlank() || lastName.isBlank() || !Validator.validatePassword(password)) {
             req.getSession().setAttribute("is_changed_data_valid", "not_valid");
-            return "main?command=my_account&type=change";
+            return "main?command=show_account_info_page";
         }
 
         //hash password and create user
@@ -47,6 +47,6 @@ public class ChangeAccountInfoCommand extends Command {
         req.getSession().removeAttribute("is_changed_data_valid");
 
         //return page with account data
-        return "main?command=my_account&type=view";
+        return "main?command=show_my_account_info_page";
     }
 }

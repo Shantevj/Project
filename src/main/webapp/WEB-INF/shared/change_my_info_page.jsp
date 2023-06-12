@@ -27,7 +27,7 @@
           </ul>
           <div class="card-body text-right">
             <input type="submit" class="btn btn-success" value="Confirm" />
-            <a href="main?command=my_account&type=view" class="btn btn-danger">Cancel</a>
+            <a href="main?command=show_my_account_info_page" class="btn btn-danger">Cancel</a>
           </div>
           </form>
         </div>

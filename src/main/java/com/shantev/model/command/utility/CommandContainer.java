@@ -17,7 +17,8 @@ public class CommandContainer {
         commandMap.put("incorrect_command", new IncorrectCommand());
         commandMap.put("block_user", new BlockUserCommand());
         commandMap.put("unblock_user", new UnblockUserCommand());
-        commandMap.put("my_account", new AccountInfoCommand());
+        commandMap.put("show_my_account_info_page", new ShowAccountInfoPage());
+        commandMap.put("show_change_account_info_page", new ShowChangeAccountInfoPage());
         commandMap.put("change_my_info", new ChangeAccountInfoCommand());
         commandMap.put("set_admin", new SetAdminCommand());
         commandMap.put("delete_admin", new DeleteAdminCommand());
@@ -25,6 +26,8 @@ public class CommandContainer {
         commandMap.put("delete_manager", new DeleteManagerCommand());
         commandMap.put("set_speaker", new SetSpeakerCommand());
         commandMap.put("delete_speaker", new DeleteSpeakerCommand());
+        commandMap.put("show_add_event_page", new ShowAddEventPageCommand());
+        commandMap.put("add_event", new AddEventCommand());
 //        commandMap.put("log_in", new LoginCommand());
 //        commandMap.put("log_in", new LoginCommand());
     }

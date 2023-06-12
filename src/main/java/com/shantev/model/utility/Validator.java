@@ -33,7 +33,7 @@ public class Validator {
     }
 
     public static boolean validatePassword(String password) {
-        String passwordPatternString = ".{1,}$";
+        String passwordPatternString = ".{1,100}$";
         Pattern pattern = Pattern.compile(passwordPatternString);
         Matcher matcher = pattern.matcher(password);
         return matcher.find();

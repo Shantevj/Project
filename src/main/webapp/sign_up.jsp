@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <!DOCTYPE html>
     <html lang="en">
 
@@ -20,7 +21,7 @@
                             <form id="signup-form" class="form" action="main?command=sign_up" method="POST">
                                 <h3 class="text-center text-info">Sign up</h3>
                                 <c:if test="${is_signup_data_valid eq 'not_valid'}">
-                                    <div id="failed">Incorrect login data</div>
+                                    <div id="failed">Incorrect sign up data</div>
                                 </c:if>
                                 <div class="form-group">
                                     <label for="firstName" class="text-info">First Name</label>

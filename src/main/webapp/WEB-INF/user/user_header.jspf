@@ -5,18 +5,18 @@
             <div class="btn btn-primary dropdown">
                 Events
                 <div class="dropdown-content">
-                    <a href="#home">Science</a>
-                    <a href="#home">IT</a>
-                    <a href="#home">Tech</a>
-                    <a href="#home">Business</a>
-                    <a href="#home">Enviro</a>
-                    <a href="#home">Health</a>
-                    <a href="#home">Society</a>
-                    <a href="#home">Life</a>
-                    <a href="#home">Other</a>
+                    <a href="main?command=get_events&event_category=science">Science</a>
+                    <a href="main?command=get_events&event_category=it">IT</a>
+                    <a href="main?command=get_events&event_category=tech">Tech</a>
+                    <a href="main?command=get_events&event_category=business">Business</a>
+                    <a href="main?command=get_events&event_category=evniro">Enviro</a>
+                    <a href="main?command=get_events&event_category=health">Health</a>
+                    <a href="main?command=get_events&event_category=society">Society</a>
+                    <a href="main?command=get_events&event_category=life">Life</a>
+                    <a href="main?command=get_events&event_category=other">Other</a>
                 </div>
             </div>
-            <a href="main?command=my_account&type=view"><div class="btn btn-success">My account</div></a>
+            <a href="main?command=show_my_account_info_page"><div class="btn btn-success">My account</div></a>
             <a href="main?command=log_out"><div class="btn btn-danger">Log out</div></a>
         </div>
     </div>

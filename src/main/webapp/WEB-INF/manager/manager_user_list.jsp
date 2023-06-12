@@ -15,6 +15,7 @@
               <th>First name</th>
               <th>Last name</th>
               <th>Email(login)</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>

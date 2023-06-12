@@ -1,11 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
-      <sql:query var="rs" dataSource="jdbc/ConferenceDB">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<sql:query var="rs" dataSource="jdbc/ConferenceDB">
         SELECT e.id, e.theme, c.name, ed.date, ed.address, ed.description, es.description
         FROM Events AS e, Categories AS c, Event_statuses AS es, Event_details AS ed
         WHERE ed.event_id=e.id AND c.id=e.category_id AND es.id=e.event_status_id
-      </sql:query>
+</sql:query>
       <html>
 
       <head>
@@ -35,6 +35,7 @@
               <th>Address</th>
               <th>Description</th>
               <th>Status</th>
+              <th>Register</th>
             </tr>
           </thead>
           <tbody>

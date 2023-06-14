@@ -22,7 +22,7 @@
           </ul>
           <div class="card-body text-right">
             <a class="btn btn-primary" href="main?command=show_change_account_info_page">Edit</a>
-            <a class="btn btn-danger" href="#">Delete account</a>
+            <a class="btn btn-danger" href="#">Delete account<%=request.getMethod()%></a>
           </div>
         </div>
         <%@include file="../shared/footer.jspf" %>

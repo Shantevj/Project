@@ -44,7 +44,7 @@ public class Constants {
     public static String ADD_NEW_EVENT = "INSERT INTO `Events` VALUES(DEFAULT, ?, ?, ?)";
     public static String ADD_EVENT_DETAIL = "INSERT INTO Event_details VALUES(?, ?, ?, ?)";
     public static String UPDATE_EVENT = "UPDATE Events SET theme=?, event_status_id=? WHERE id=?";
-    public static String UPDATE_EVENT_DETAIL = "UPDATE Event_details SET date=? address=? description=? WHERE event_id=?";
+    public static String UPDATE_EVENT_DETAIL = "UPDATE Event_details SET date=?, address=?, description=? WHERE event_id=?";
     public static String DELETE_EVENT = "DELETE FROM Events WHERE id=?";
 
 }

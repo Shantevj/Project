@@ -11,22 +11,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class GetEventsCommand extends Command {
+public class DeleteEventCommand extends Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) throws DBException {
-        //find out what category events user has requested
+        //find out id of event to be deleted
+        int eventId = Integer.parseInt(req.getParameter("eventId"));
+
+        //find out which category events will be returned
         Category category = Category.valueOf(req.getParameter("event_category").toUpperCase());
 
         //attempt to obtain EventDAO instance
         EventDAO eventDAO = daoFactory.getEventDAO();
 
-        //attempt ot obtain list of events by chosen category
+        //attempt to delete event with this id from database;
+        eventDAO.deleteEventById(eventId);
+
+        //attempt ot obtain new list of events by chosen category
         List<Event> events = eventDAO.getEventsByCategory(category);
 
         //put events in session
         req.getSession().setAttribute("eventList", events);
 
         //return page with events
-        return "WEB-INF/shared/events_list.jsp";
+        return "main?command=get_events";
     }
 }

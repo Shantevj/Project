@@ -162,6 +162,7 @@ public class MysqlEventDAO implements EventDAO {
             stmt = con.prepareStatement(Constants.UPDATE_EVENT);
             stmt.setString(1, event.getTheme());
             stmt.setInt(2, event.getStatus().getStatusId());
+            stmt.setInt(3, event.getId());
             int rowsAffected = stmt.executeUpdate();
             updateEventDetails(event);
         } catch (SQLException ex) {

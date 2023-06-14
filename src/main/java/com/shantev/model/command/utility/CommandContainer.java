@@ -29,6 +29,9 @@ public class CommandContainer {
         commandMap.put("show_add_event_page", new ShowAddEventPageCommand());
         commandMap.put("add_event", new AddEventCommand());
         commandMap.put("get_events", new GetEventsCommand());
+        commandMap.put("delete_event", new DeleteEventCommand());
+        commandMap.put("show_change_event_info_page", new ShowChangeEventInfoPage());
+        commandMap.put("change_event", new ChangeEventCommand());
 //        commandMap.put("log_in", new LoginCommand());
 //        commandMap.put("log_in", new LoginCommand());
     }

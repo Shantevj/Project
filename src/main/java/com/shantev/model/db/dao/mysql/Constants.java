@@ -47,5 +47,6 @@ public class Constants {
     public static String UPDATE_EVENT = "UPDATE Events SET theme=?, event_status_id=? WHERE id=?";
     public static String UPDATE_EVENT_DETAIL = "UPDATE Event_details SET date=?, address=?, description=? WHERE event_id=?";
     public static String DELETE_EVENT = "DELETE FROM Events WHERE id=?";
+    public static String GET_ALL_USERS_JOINED_TO_EVENT = "SELECT u.first_name AS name FROM Users AS u, Events_has_Users AS ehu WHERE ehu.Events_id=? AND u.id=ehu.Users_id";
 
 }

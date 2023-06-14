@@ -208,4 +208,23 @@ public class MysqlEventDAO implements EventDAO {
             throw new DBException(Messages.CANNOT_DELETE_EVENT, ex);
         }
     }
+
+    @Override
+    public List<String> getAllUsersJoinedToEvent(int id) throws DBException {
+        List<String> userList = new ArrayList<>();
+        Connection con = Utility.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            stmt = con.prepareStatement(Constants.GET_ALL_USERS_JOINED_TO_EVENT);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+                userList.add(rs.getString("name"));
+            }
+        } catch (SQLException ex) {
+            throw new DBException(Messages.CANNOT_GET_USERS_JOINED_TO_EVENT, ex);
+        }
+        return userList;
+    }
 }

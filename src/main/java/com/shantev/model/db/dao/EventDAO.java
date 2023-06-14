@@ -16,4 +16,5 @@ public interface EventDAO {
     void updateEvent(Event event) throws DBException;
     void addNewReportToEvent(int id, Report report) throws DBException;
     void deleteEventById(int id) throws DBException;
+    List<String> getAllUsersJoinedToEvent(int id) throws DBException;
 }

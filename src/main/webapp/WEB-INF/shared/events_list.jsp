@@ -85,6 +85,9 @@
                   </form>
                 </td>
                 </c:if>
+                <td>
+                  <a href="main?command=show_users_joined_to_event&eventId=${event.id}"><div class="btn btn-info">Show users joined to the event</div></a>
+                </td>
               </tr>
             </c:forEach>
           </tbody>

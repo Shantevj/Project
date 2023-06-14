@@ -7,6 +7,7 @@ public class Messages {
     public static final String CANNOT_ADD_USER = "Something went wrong, new user was not added to the DB, try again";
     public static final String CANNOT_UPDATE_USER = "Something went wrong, user information was not changed in the DB, try again";
     public static final String CANNOT_DELETE_USER = "We can not delete user";
+    public static final String CANNOT_REGISTER_USER_FOR_EVENT = "Something went wrong, therefore we can not register the user for the event";
 
     /****************************EVENT MESSAGES********************************/
     public static final String CANNOT_OBTAIN_EVENTS_BY_ID = "We can not obtain events by id";

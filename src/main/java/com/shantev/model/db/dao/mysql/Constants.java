@@ -11,6 +11,7 @@ public class Constants {
     public static String DELETE_USER = "DELETE FROM Users WHERE id=?";
     public static String GET_USER_BY_LOGIN_AND_PASSWORD = "SElECT * FROM Users " +
             "WHERE login=? AND password=?";
+    public static String REGISTER_USER_FOR_EVENT = "INSERT INTO Events_has_Users VALUES(?, ?)";
 
     /****************************EVENT QUERIES********************************/
 //    public static String GET_EVENT_BY_ID = "SELECT * FROM Events WHERE id=?";

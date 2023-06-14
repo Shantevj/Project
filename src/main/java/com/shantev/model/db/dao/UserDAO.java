@@ -13,4 +13,5 @@ public interface UserDAO {
     void updateUser(User user) throws DBException;
     void deleteUserById(int id) throws DBException;
     public User getUserByLoginAndPassword(String login, String password) throws DBException;
+    public void registerUserForEvent(int eventId, int userId) throws DBException;
 }

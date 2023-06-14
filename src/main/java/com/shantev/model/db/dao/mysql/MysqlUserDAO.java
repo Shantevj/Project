@@ -83,16 +83,16 @@ public class MysqlUserDAO implements UserDAO {
             stmt.setString(4, user.getPassword());
             stmt.setInt(5, user.getRole().getRoleId());
             int rowsAffected = stmt.executeUpdate();
-            if(rowsAffected > 0) {
-                try(ResultSet rs = stmt.getGeneratedKeys()) {
-                    if(rs.next()) {
+            if (rowsAffected > 0) {
+                try (ResultSet rs = stmt.getGeneratedKeys()) {
+                    if (rs.next()) {
                         int id = rs.getInt(1);
                         user.setId(id);
                     }
                 }
             }
 
-        } catch(SQLException ex) {
+        } catch (SQLException ex) {
             throw new DBException(Messages.CANNOT_ADD_USER, ex);
         } finally {
             Utility.close(stmt);
@@ -100,6 +100,7 @@ public class MysqlUserDAO implements UserDAO {
         }
 
     }
+
     @Override
     public void updateUser(User user) throws DBException {
         Connection con = Utility.getConnection();
@@ -169,5 +170,23 @@ public class MysqlUserDAO implements UserDAO {
             Utility.close(con);
         }
     }
-    
+
+    @Override
+    public void registerUserForEvent(int eventId, int userId) throws DBException {
+        Connection con = Utility.getConnection();
+        PreparedStatement stmt = null;
+        try {
+            stmt = con.prepareStatement(Constants.REGISTER_USER_FOR_EVENT);
+            stmt.setInt(1, eventId);
+            stmt.setInt(2, userId);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+//            Add logging
+            throw new DBException(Messages.CANNOT_REGISTER_USER_FOR_EVENT, ex);
+        } finally {
+            Utility.close(stmt);
+            Utility.close(con);
+        }
+    }
+
 }

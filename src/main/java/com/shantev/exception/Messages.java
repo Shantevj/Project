@@ -19,5 +19,6 @@ public class Messages {
     public static final String CANNOT_UPDATE_EVENT_DETAIL = "Event detail was not updated";
     public static final String CANNOT_DELETE_EVENT = "We can not delete event";
     public static final String CANNOT_GET_USERS_JOINED_TO_EVENT = "We can not get users, joined to the event";
+    public static final String CANNOT_ADD_REPORT = "Can not add report";
 }
 

@@ -49,4 +49,7 @@ public class Constants {
     public static String DELETE_EVENT = "DELETE FROM Events WHERE id=?";
     public static String GET_ALL_USERS_JOINED_TO_EVENT = "SELECT u.first_name AS name FROM Users AS u, Events_has_Users AS ehu WHERE ehu.Events_id=? AND u.id=ehu.Users_id";
 
+    /****************************USER QUERIES********************************/
+    public static String ADD_NEW_REPORT = "INSERT INTO Reports VALUES(DEFAULT, ?, ?, ?, ?, ?)";
+
 }

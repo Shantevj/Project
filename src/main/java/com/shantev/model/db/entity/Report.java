@@ -5,13 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Report {
+    private int id;
+    private int eventId;
     private String topic;
     private Timestamp startTime;
     private Timestamp endTime;
     private String description;
     private List<User> narrators = new ArrayList<>();
 
-    public Report() {}
+    public Report() {
+    }
+
     public Report(String topic, Timestamp startTime, Timestamp endTime, String description) {
         this.topic = topic;
         this.startTime = startTime;
@@ -25,6 +29,22 @@ public class Report {
         this.endTime = endTime;
         this.description = description;
         this.narrators = narrators;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
     }
 
     public String getTopic() {
